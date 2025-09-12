@@ -1,16 +1,15 @@
 {
-    "awesome-api": "https://economia.awesomeapi.com.br/last",
-    "awesome-coins-api": "https://economia.awesomeapi.com.br/json/available/uniq",
+    "awesome_api": "https://economia.awesomeapi.com.br",
     "spotify_token_api": "https://accounts.spotify.com/api/token",
     "spotify_search_api": "https://api.spotify.com/v1/search",
-    "thinker_api": "https://pensador-api.vercel.app/?term=",
+    "thinker_api": "https://pensador-api.vercel.app",
     "yugioh_api": "https://db.ygoprodeck.com/api/v7/cardinfo.php",
     "emoji_mix_api": "https://tenor.googleapis.com/v2/featured",
-    "popcat-api": "https://api.popcat.xyz",
-    "joke-api": "https://official-joke-api.appspot.com/jokes/random",
-    "ibge-api": "https://servicodados.ibge.gov.br/api/v3/noticias/?qtd=5",
-    "advice-api": "https://api.adviceslip.com/advice",
-    "price-img": "https://i.pinimg.com/564x/78/90/ae/7890ae98af811b439ac4311e2e260a57.jpg",
-    "openwhyd-api": "https://openwhyd.org/search?context=addTrack&q=",
-    "ibge-img": "https://i.pinimg.com/564x/7d/26/3d/7d263db5a07b30c6f638e1df3dcd2f42.jpg"
+    "popcat_api": "https://api.popcat.xyz",
+    "joke_api": "https://official-joke-api.appspot.com/jokes/random",
+    "ibge_api": "https://servicodados.ibge.gov.br/api/v3/noticias",
+    "advice_api": "https://api.adviceslip.com/advice",
+    "openwhyd_api": "https://openwhyd.org/search",
+    "price_img": "https://i.pinimg.com/564x/78/90/ae/7890ae98af811b439ac4311e2e260a57.jpg",
+    "ibge_img": "https://i.pinimg.com/564x/7d/26/3d/7d263db5a07b30c6f638e1df3dcd2f42.jpg"
 }
