@@ -1,7 +1,7 @@
 import { MessageMedia } from "../../lib/wwbotjs.js";
 const { nickname } = await (await import("../../utils/importJson.js")).importJson("src/config/bot.json");
-import { imgToWebp } from "../../utils/helpers/imgToWebp.js"
-import { videoResize } from "../../utils/helpers/videoResize.js";
+import { imgToWebp } from "../../helpers/imgToWebp.js"
+import { videoResize } from "../../helpers/videoResize.js";
 import { msgResult } from "../../utils/messageResult.js";
 import { RNG } from "../../utils/RNG.js";
 

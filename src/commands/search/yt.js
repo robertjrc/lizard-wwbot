@@ -1,7 +1,7 @@
 import { YoutubeService } from "../../services/youtubeService.js";
 import { msgResult } from "../../utils/messageResult.js";
-import { numberAbbreviation } from "../../utils/helpers/numberAbbreviation.js";
-import { timeDuration } from "../../utils/helpers/timeDuration.js";
+import { numberAbbreviation } from "../../helpers/numberAbbreviation.js";
+import { timeDuration } from "../../helpers/timeDuration.js";
 
 export default {
     name: "yt",

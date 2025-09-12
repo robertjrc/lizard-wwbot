@@ -1,6 +1,6 @@
 import { capitalize } from "../../utils/capitalize.js";
 import { getModules } from "../../utils/commandRegistry.js"
-import { timeDuration } from "../../utils/helpers/timeDuration.js";
+import { timeDuration } from "../../helpers/timeDuration.js";
 const {
     prefix,
     nickname,

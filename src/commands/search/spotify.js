@@ -1,5 +1,5 @@
 import { MessageMedia } from "../../lib/wwbotjs.js";
-import { axdl } from "../../utils/helpers/axdl.js";
+import { axdl } from "../../helpers/axdl.js";
 import { SpofityService } from "../../services/spotifyService.js";
 import { msgResult } from "../../utils/messageResult.js";
 
