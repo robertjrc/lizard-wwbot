@@ -1,9 +1,10 @@
 import ffmpeg from "fluent-ffmpeg";
 import { Readable } from "stream";
-import { tempFile } from "../../utils/tempFile.js";
+import { tempFile } from "../utils/tempFile.js";
 import fs from "node:fs/promises";
+import { importJson } from "../utils/importJson.js";
 
-const { ffmpeg_path } = await (await import("../../utils/importJson.js")).importJson("src/config/settings.json");
+const { ffmpeg_path } = await importJson("src/config/settings.json");
 
 ffmpeg.setFfmpegPath(ffmpeg_path);
 
