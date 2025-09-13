@@ -3,11 +3,14 @@ import { Member } from "group-analyzer";
 export default {
     name: "perfil",
     category: "informação",
-    desc: "",
+    desc: `
+        Exibe a latência atual do bot em milissegundos,
+        útil para verificar a responsividade da conexão.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { chat }) {
         const memberInfo = (await Member.getByGroupId(msg.author, chat.id._serialized)).data;
 
-        // if(memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
+        if (memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
 
         let text = `┌─⊣〔 *${memberInfo.shortName}* 〕Lv. *${memberInfo.level}*\n`;
         text += "│\n";
