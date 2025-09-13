@@ -1,7 +1,6 @@
 import axios from "axios";
 import { URL } from "node:url";
-
-const { emoji_mix_api } = await (await import("../utils/importJson.js")).importJson("src/data/URLs.json");
+import { importJson } from "../utils/importJson.js";
 
 export class EmojiMixService {
     static async mix(emoji01, emoji02) {
@@ -13,13 +12,14 @@ export class EmojiMixService {
             }
         }
 
+        const { emoji_mix_api } = await importJson("src/data/URLs.json");
         const url = new URL(emoji_mix_api);
 
         url.searchParams.append("key", process.env.EMOJIMIX_API_KEY);
         url.searchParams.append("contentfilter", "high");
         url.searchParams.append("media_filter", "png_transparent");
         url.searchParams.append("component", "proactive");
-        url.searchParams.append("collection", "emoji_kitchen_v5"); 
+        url.searchParams.append("collection", "emoji_kitchen_v5");
         url.searchParams.append("q", `${emoji01}_${emoji02}`);
 
         try {
