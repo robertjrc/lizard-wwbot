@@ -1,16 +1,19 @@
 import { capitalize } from "../../utils/capitalize.js";
 import { getCommand } from "../../utils/commandRegistry.js"
 import { msgResult } from "../../utils/messageResult.js";
-
-const { nickname, prefix } = await (await import("../../utils/importJson.js")).importJson("src/config/bot.json");
-const { version } = await (await import("../../utils/importJson.js")).importJson("package.json");
+import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "help",
     params: ["<command>"],
     category: "informação",
-    desc: "Exibe informações sobre categorias de comandos e suas funcionalidades. Se for especificado um comando, mostra detalhes sobre seu uso.",
+    desc: `
+        Exibe informações sobre categorias de comandos e suas funcionalidades.
+        Se for especificado um comando, mostra detalhes sobre seu uso.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
+        const { prefix, nickname } = await importJson("src/config/bot.json");
+        const { version } = await importJson("package.json");
         let text;
 
         if (!args) {
