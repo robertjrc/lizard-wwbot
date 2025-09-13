@@ -5,17 +5,21 @@ import { timeDuration } from "../../helpers/timeDuration.js";
 
 export default {
     name: "yt",
-    params: ["<name>", "<link>"],
+    params: ["<name>", "<url>"],
     category: "pesquisa",
     wait: true,
-    desc: "",
+    desc: `
+        Retorna uma prévia de um vídeo do YouTube,
+        exibindo canal, duração,
+        visualizações e outras informações relevantes.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
         const charLimit = 60;
 
         if (!args) {
             return msg.reply(msgResult("alert", {
                 title: "sem parâmetro",
-                message: "O nome ou link da música não foi passado."
+                message: "Por favor, forneça o *nome* ou *URL* do vídeo."
             }));
         }
 
