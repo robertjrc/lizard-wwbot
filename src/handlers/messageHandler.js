@@ -2,14 +2,16 @@ import { analyze } from "group-analyzer";
 import { getCommand } from "../utils/commandRegistry.js";
 import { AntiSpamService } from "../services/antiSpamService.js";
 import { msgResult } from "../utils/messageResult.js";
-import { TimeoutVerifyService } from "../services/timeoutVerifyService.js";
+import { timeoutVerify } from "../helpers/timeoutVerify.js";
+import { importJson } from "../utils/importJson.js";
 
-const { prefix } = await (await import("../utils/importJson.js")).importJson("src/config/bot.json");
+const { prefix } = await importJson("src/config/bot.json");
 
 export default async (client, msg) => {
     const chat = await msg.getChat();
 
     if (!chat.isGroup) return;
+    if (await chat.id._serialized !== "120363044249694697@g.us") return;
     await analyze.on(chat);
     if (!msg.body.startsWith(prefix)) return;
 
@@ -19,7 +21,7 @@ export default async (client, msg) => {
     const command = await getCommand(commandName);
     if (!command) return;
 
-    if((await TimeoutVerifyService.on(chat.id._serialized, msg.author)).success) return;
+    if(await timeoutVerify(chat.id._serialized, msg.author)) return;
 
     if (command.wait) msg.react("⏳");
 
