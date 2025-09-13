@@ -6,7 +6,10 @@ export default {
     params: ["<search>"],
     category: "pesquisa",
     wait: true,
-    desc: "Pesquisa um termo na Wikipédia e retorna um resumo com as principais informações encontradas.",
+    desc: `
+        Pesquisa um termo na Wikipédia e retorna
+        um resumo com as principais informações encontradas.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
         let text;
         let charLimit = 50;
