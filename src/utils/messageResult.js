@@ -1,7 +1,7 @@
 export function msgResult(type, { title, message }) {
     const msgTypes = {
         "alert": "⚠️",
-        "error": "❎",
+        "error": "❌",
         "success": "✅"
     }
 
