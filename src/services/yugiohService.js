@@ -1,8 +1,7 @@
 import axios from "axios";
 import { URL } from "node:url";
 import { RNG } from "../utils/RNG.js";
-
-const { yugioh_api } = await (await import("../utils/importJson.js")).importJson("src/data/URLs.json");
+import { importJson } from "../utils/importJson.js";
 
 export class YugiohService {
     async getInfo() {
@@ -14,6 +13,7 @@ export class YugiohService {
             }
         }
 
+        const { yugioh_api } = await importJson("src/data/URLs.json");
         const url = new URL(yugioh_api);
         url.searchParams.append("language", "pt");
 
@@ -31,11 +31,13 @@ export class YugiohService {
                     desc: card.desc,
                     img_url: card.card_images[0].image_url,
                 },
-                message: "Carta Yugioh encontrada com sucess."
+                message: "Carta Yu-Gi-Oh encontrada com sucesso."
             });
         } catch (error) {
             console.error(error);
-            return result(false, { message: "erro ao obter a carta." });
+            return result(false, {
+                message: "Não foi possível obter a carta Yu-Gi-Oh."
+            });
         }
     }
 }
