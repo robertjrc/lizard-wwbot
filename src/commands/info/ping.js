@@ -1,7 +1,10 @@
 export default {
     name: "ping",
     category: "informação",
-    desc: "Exibe a latência atual do bot em milissegundos, útil para verificar a responsividade da conexão.",
+    desc: `
+        Exibe a latência atual do bot em milissegundos,
+        útil para verificar a responsividade da conexão.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
         const start = Date.now();
         const sent = await msg.reply(`🔄 Processando...`);
