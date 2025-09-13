@@ -4,8 +4,7 @@ import { imgToWebp } from "../../helpers/imgToWebp.js"
 import { videoResize } from "../../helpers/videoResize.js";
 import { msgResult } from "../../utils/messageResult.js";
 import { RNG } from "../../utils/RNG.js";
-
-const stickerMsg = await (await import("../../utils/importJson.js")).importJson("src/data/stickerMessages.json");
+import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "sticker",
@@ -14,6 +13,7 @@ export default {
     category: "mídia",
     desc: "Cria figurinhas personalizadas a partir de imagens, vídeos ou GIFs.",
     async execute(msg, { args }) {
+        const stickerMsg = await importJson("src/data/stickerMessages.json");
         const authorNickname = msg._data.notifyName;
         const MediaType = {
             image: { mimetype: 'image/webp', filename: `${Date.now()}.webp` },
