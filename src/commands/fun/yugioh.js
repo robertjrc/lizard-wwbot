@@ -1,12 +1,16 @@
 import { MessageMedia } from "../../lib/wwbotjs.js";
-import { YugiohService } from "../../services/yugiohService.js";
 import { msgResult } from "../../utils/messageResult.js";
+import { YugiohService } from "../../services/yugiohService.js";
 
 export default {
     name: "yugioh",
     category: "diversão",
     wait: true,
-    desc: "Retorna informações detalhadas sobre uma carta do Yu-Gi-Oh!, incluindo atributos, tipo, efeito e imagem ilustrativa (quando disponível).",
+    desc: `
+          Retorna informações detalhadas sobre uma carta do Yu-Gi-Oh!,
+          incluindo atributos, tipo,
+          efeito e imagem ilustrativa (quando disponível).
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
         const yugioh = new YugiohService();
         const response = await yugioh.getInfo();
@@ -25,7 +29,7 @@ export default {
             def: response.data.def,
             level: response.data.level,
             desc: response.data.desc,
-            img_url: response.data.img_url
+            img_url: response.data.img_url,
         }
 
         const cardPowers = new Array();
