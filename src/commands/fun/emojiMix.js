@@ -1,8 +1,7 @@
 import { EmojiMixService } from "../../services/emojiMixService.js";
 import { MessageMedia } from "../../lib/wwbotjs.js";
 import { msgResult } from "../../utils/messageResult.js";
-
-const { nickname } = await (await import("../../utils/importJson.js")).importJson("src/config/bot.json");
+import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "emojimix",
@@ -73,7 +72,8 @@ export default {
             {
                 sendMediaAsSticker: true,
                 stickerName: msg._data.notifyName,
-                stickerAuthor: nickname
+                stickerAuthor: (await importJson("src/config/bot.json")).nickname
+
             }
         );
     }
