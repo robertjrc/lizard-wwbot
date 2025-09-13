@@ -3,11 +3,7 @@ import fs from "node:fs/promises";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { URL } from "node:url";
-
-const {
-    spotify_token_api,
-    spotify_search_api
-} = await (await import("../utils/importJson.js")).importJson("src/data/URLs.json");
+import { importJson } from "../utils/importJson.js";
 
 export class SpofityService {
     #storagePath = join(process.env.STORAGE_PATH, "spotify_storage", "token.json");
@@ -15,6 +11,7 @@ export class SpofityService {
     constructor() { this.#init(this.#storagePath); }
 
     async getTrack(track) {
+        const { spotify_search_api } = await importJson("src/data/URLs.json");
         const url = new URL(spotify_search_api);
 
         url.searchParams.append("q", track);
@@ -39,6 +36,7 @@ export class SpofityService {
     }
 
     async #getNewToken(track) {
+        const { spotify_token_api } = await importJson("src/data/URLs.json");
         const url = spotify_token_api;
         const form = { "grant_type": "client_credentials" };
         const options = {
