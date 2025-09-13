@@ -1,19 +1,22 @@
 import { capitalize } from "../../utils/capitalize.js";
 import { getModule, getModules } from "../../utils/commandRegistry.js"
 import { msgResult } from "../../utils/messageResult.js";
-const {
-    prefix,
-    nickname,
-} = await (await import("../../utils/importJson.js")).importJson("src/config/bot.json");
-const { version } = await (await import("../../utils/importJson.js")).importJson("package.json");
-const modulesEmoji = await (await import("../../utils/importJson.js")).importJson("src/data/modulesEmoji.json");
+import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "categoria",
     params: ["<category>"],
     category: "informação",
-    desc: "Lista todas as categorias disponíveis. Se for especificado um nome, exibe os comandos pertencentes apenas àquela categoria.",
+    desc: `
+        Lista todas as categorias disponíveis.
+        Se for especificado um nome, 
+        exibe os comandos pertencentes apenas àquela categoria. 
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
+        const { prefix, nickname } = await importJson("src/config/bot.json");
+        const { version } = await importJson("package.json");
+        const modulesEmoji = await importJson("src/data/modulesEmoji.json");
+
         let text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
         text += "│\n";
 
@@ -53,7 +56,7 @@ export default {
         });
 
         text += "│\n";
-        text += (`├${prefix}help ` + "```<command>```\n");
+        text += `├${prefix}help ${"```<command>```"}\n`;
         text += "│\n";
         text += "└──⊣";
 
