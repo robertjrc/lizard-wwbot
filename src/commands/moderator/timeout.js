@@ -6,7 +6,10 @@ export default {
     params: ["<@user 1h reason>"],
     category: "moderação",
     admin: true,
-    desc: "Impede o usuário de executar comandos temporariamente. É possível definir a duração e opcionalmente um motivo para o bloqueio.",
+    desc: `
+        Impede o usuário de executar comandos temporariamente.
+        É possível definir a duração e opcionalmente um motivo para o bloqueio.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { chat, args }) {
         if (!args) {
             return msg.reply(msgResult("alert", {
