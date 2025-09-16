@@ -1,0 +1,17 @@
+{
+    "grave": "bass=g=10",
+    "agudo": "treble=g=5",
+    "reverter": "areverse",
+    "estourar": "acrusher=bits=4:mode=log:aa=0,volume=10dB",
+    "estourar2": "bass=g=20, treble=g=15, volume=25dB, acrusher=bits=4:mode=log:aa=0",
+    "acelerar": "atempo=2.0",
+    "lento": "atempo=0.5",
+    "eco": "aecho=0.8:0.9:1000:0.3",
+    "robot": "afftfilt=real='hypot(re,im)':imag='0'",
+    "ambiente": "aecho=0.6:0.6:50:0.5, aecho=0.6:0.6:70:0.5",
+    "radio": "highpass=f=300, lowpass=f=3400",
+    "psicodelico": "flanger",
+    "compressor": "acompressor",
+    "normalizar": "loudnorm",
+    "megafone": "acrusher=bits=2:mode=log,volume=20dB,highpass=f=1000"
+}
