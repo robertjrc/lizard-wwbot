@@ -1,28 +1,21 @@
-import axios from "axios";
-import { URL } from "node:url";
-import { translate } from "../../utils/translate.js";
 import { msgResult } from "../../utils/messageResult.js";
-import { importJson } from "../../utils/importJson.js";
+import { PopCatService } from "../../services/popCatService.js";
 
 export default {
     name: "piada",
     category: "diversão",
+    wait: true,
     desc: "Retorna uma piada aleatória.",
     async execute(msg) {
-        const { popcat_api } = await importJson("../../data/URLs.json");
+        const response = await (new PopCatService()).joke();
 
-        const url = new URL(popcat_api);
-        url.pathname = "/joke";
-
-        const { status, data } = await axios.get(url.href);
-
-        if (status !== 200) {
+        if (!response.success) {
             return await msg.reply(msgResult("error", {
                 title: "não foi possível",
-                message: "Não foi possível obter a piada."
+                message: response.message
             }));
         }
 
-        return await msg.reply(await translate(data.joke, "pt"));
+        return await msg.reply(response.data);
     }
 }
