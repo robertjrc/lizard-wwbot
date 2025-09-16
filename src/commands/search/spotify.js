@@ -7,7 +7,11 @@ export default {
     name: "spotify",
     params: ["<name>"],
     category: "pesquisa",
-    desc: "retorna informações do spotify sobre a música pesquisada.",
+    desc: `
+        Retorna informações do
+        spotify sobre a música
+        pesquisada.
+    `.replace(/\s+/g, ' ').trim(),
     wait: true,
     async execute(msg, { args }) {
         const charLimit = 50;
