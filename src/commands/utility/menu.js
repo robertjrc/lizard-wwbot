@@ -5,8 +5,11 @@ import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "menu",
-    category: "informação",
-    desc: "Exibe o menu interativo com todas as categorias e comandos disponíveis no bot.",
+    category: "utilidade",
+    desc: `
+        Exibe o menu interativo com todas as
+        categorias e alguns comandos no bot.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
         const { prefix, nickname, owner } = await importJson("src/config/bot.json");
         const { version } = await importJson("package.json");
@@ -21,7 +24,7 @@ export default {
         text += `├ criado por:  *${owner}*\n`
         text += `├ uptime:  *${timeDuration(global.uptime, "past")}*\n`
         text += "│\n"
-        text += `│──⊣〔 *Comandos* 〕(${commandsAmount})\n`
+        text += `│──⊣〔 *MENU* 〕(${commandsAmount})\n`
         text += "│\n"
 
         for (let command of modules) {

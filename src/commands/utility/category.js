@@ -6,11 +6,12 @@ import { importJson } from "../../utils/importJson.js";
 export default {
     name: "categoria",
     params: ["<category>"],
-    category: "informação",
+    category: "utilidade",
     desc: `
-        Lista todas as categorias disponíveis.
-        Se for especificado um nome, 
-        exibe os comandos pertencentes apenas àquela categoria. 
+        Lista todas as categorias 
+        disponíveis.Se for especificado
+        um nome, exibe os comandos 
+        pertencentes apenas àquela categoria. 
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
         const { prefix, nickname } = await importJson("src/config/bot.json");
@@ -28,7 +29,7 @@ export default {
             }
 
             text += "│\n";
-            text += `├${prefix}categoria ${"```<category>```"}\n`;
+            text += `├${prefix}categoria *<category>*\n`;
             text += "│\n";
             text += "└──⊣";
 
@@ -47,8 +48,8 @@ export default {
 
         const cmdFormat = (cmd, i) => {
             return (i + 1 === module.length)
-                ? ` └${prefix}${cmd.name} ${((cmd.params) ? "```" + cmd.params[0] + "```" : "")} \n`
-                : ` ├${prefix}${cmd.name} ${((cmd.params) ? "```" + cmd.params[0] + "```" : "")} \n`
+                ? ` └${prefix}${cmd.name} ${((cmd.params) ? "*" + cmd.params[0] + "*" : "")} \n`
+                : ` ├${prefix}${cmd.name} ${((cmd.params) ? "*" + cmd.params[0] + "*" : "")} \n`
         }
 
         module.forEach((cmd, i) => {
@@ -56,7 +57,7 @@ export default {
         });
 
         text += "│\n";
-        text += `├${prefix}help ${"```<command>```"}\n`;
+        text += `├${prefix}help *<command>*\n`;
         text += "│\n";
         text += "└──⊣";
 

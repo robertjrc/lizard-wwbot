@@ -6,10 +6,12 @@ import { importJson } from "../../utils/importJson.js";
 export default {
     name: "help",
     params: ["<command>"],
-    category: "informação",
+    category: "utilidade",
     desc: `
-        Exibe informações sobre categorias de comandos e suas funcionalidades.
-        Se for especificado um comando, mostra detalhes sobre seu uso.
+        Exibe informações sobre categorias 
+        de comandos e suas funcionalidades.
+        Se for especificado um comando,
+        mostra detalhes sobre seu uso.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
         const { prefix, nickname } = await importJson("src/config/bot.json");
@@ -23,10 +25,10 @@ export default {
             text += `│ └${prefix}categoria\n`
             text += "│\n"
             text += "├ *Obtém a categoria*\n"
-            text += `│ └${prefix}categoria ${"```<category>```"}\n`
+            text += `│ └${prefix}categoria *<category>*\n`
             text += "│\n"
             text += "├ *Obtém o comando*\n"
-            text += `│ └${prefix}help ${"```<command>```"}\n`;
+            text += `│ └${prefix}help *<command>*\n`;
             text += "│\n"
             text += "└──⊣";
 
@@ -42,8 +44,8 @@ export default {
 
         const paramFormat = (param, i) => {
             return (i + 1 === command.params.length)
-                ? `└${prefix}${command.name} ${"```" + param + "```"} \n`
-                : `├${prefix}${command.name} ${"```" + param + "```"} \n`
+                ? `└${prefix}${command.name} ${"*" + param + "*"} \n`
+                : `├${prefix}${command.name} ${"*" + param + "*"} \n`
         }
 
         text = `┌──⊣〔 *${capitalize(command.name)}* 〕\n`;

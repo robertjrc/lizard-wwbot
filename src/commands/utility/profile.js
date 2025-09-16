@@ -2,7 +2,7 @@ import { Member } from "group-analyzer";
 
 export default {
     name: "perfil",
-    category: "informação",
+    category: "utilidade",
     desc: `
         Exibe a latência atual do bot em milissegundos,
         útil para verificar a responsividade da conexão.
