@@ -4,6 +4,7 @@ import { AntiSpamService } from "../services/antiSpamService.js";
 import { msgResult } from "../utils/messageResult.js";
 import { timeoutVerify } from "../helpers/timeoutVerify.js";
 import { importJson } from "../utils/importJson.js";
+import { isAdmin } from "../helpers/isAdmin.js";
 
 const { prefix } = await importJson("src/config/bot.json");
 
@@ -11,7 +12,6 @@ export default async (client, msg) => {
     const chat = await msg.getChat();
 
     if (!chat.isGroup) return;
-    if (await chat.id._serialized !== "120363044249694697@g.us") return;
     await analyze.on(chat);
     if (!msg.body.startsWith(prefix)) return;
 
@@ -21,15 +21,15 @@ export default async (client, msg) => {
     const command = await getCommand(commandName);
     if (!command) return;
 
-    if(await timeoutVerify(chat.id._serialized, msg.author)) return;
-
+    if (await timeoutVerify(chat.id._serialized, msg.author)) return;
+    if (command.admin) if (!isAdmin(chat, msg.author)) return;
     if (command.wait) msg.react("⏳");
 
     (await AntiSpamService.check(chat.id._serialized, msg.author).then(res => {
         if (!res.message) return;
         msg.reply(msgResult("alert", {
             title: "você recebeu um timeout",
-            message: res.message 
+            message: res.message
         }));
     }));
 
