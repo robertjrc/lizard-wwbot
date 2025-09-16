@@ -43,7 +43,13 @@ export default {
                 : `├ ${card[0]}: *${card[1]}*\n`
         }
 
-        let text = `┌──⊣〔 *${cardProps.name}* 〕 ${(cardProps.level) ? "Lv." + cardProps.level : ""}\n`;
+        function shortName(name) {
+            const charLimit = 20;
+
+            return (name.length > charLimit) ? `${name.substring(0, charLimit)}...` : name;
+        }
+
+        let text = `┌──⊣〔 *${shortName(cardProps.name)}* 〕 ${(cardProps.level) ? "Lv." + cardProps.level : ""}\n`;
         text += "│\n";
         text += `├ 🔥 *${cardProps.type}*\n`;
         cardPowers.forEach((card, i) => {
