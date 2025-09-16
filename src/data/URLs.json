@@ -5,11 +5,12 @@
     "thinker_api": "https://pensador-api.vercel.app",
     "yugioh_api": "https://db.ygoprodeck.com/api/v7/cardinfo.php",
     "emoji_mix_api": "https://tenor.googleapis.com/v2/featured",
-    "popcat_api": "https://api.popcat.xyz",
+    "popcat_api": "https://api.popcat.xyz/v2",
     "joke_api": "https://official-joke-api.appspot.com/jokes/random",
     "ibge_api": "https://servicodados.ibge.gov.br/api/v3/noticias",
     "advice_api": "https://api.adviceslip.com/advice",
     "openwhyd_api": "https://openwhyd.org/search",
+    "reddit_api": "https://meme-api.com/gimme",
     "price_img": "https://i.pinimg.com/564x/78/90/ae/7890ae98af811b439ac4311e2e260a57.jpg",
     "ibge_img": "https://i.pinimg.com/564x/7d/26/3d/7d263db5a07b30c6f638e1df3dcd2f42.jpg"
 }
