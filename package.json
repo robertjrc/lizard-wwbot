@@ -1,6 +1,6 @@
 {
     "name": "lizard-wwbot",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "main": "index.js",
     "type": "module",
     "license": "MIT",
@@ -12,11 +12,13 @@
         "@distube/ytdl-core": "4.16.11",
         "axios": "^1.11.0",
         "fluent-ffmpeg": "^2.1.3",
-        "group-analyzer": "https://github.com/robertjrc/group-analyzer-api.git",
+        "group-analyzer": "robertjrc/group-analyzer-api#v1.2.3",
         "gtts": "^0.2.1",
+        "guess-flag": "robertjrc/guess-flag-api#1.0.6",
         "node-cache": "^5.1.2",
         "qrcode-terminal": "^0.12.0",
         "sharp": "^0.34.3",
+        "trivia": "robertjrc/trivia-api#v2.0.4",
         "whatsapp-web.js": "^1.33.3",
         "wikipedia": "^2.1.2",
         "yt-stream": "1.7.2"
