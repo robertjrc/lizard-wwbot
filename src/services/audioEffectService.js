@@ -36,7 +36,6 @@ export class AudioEffectService {
         if (setEffectCache.has(userId)) {
             const userTime = setEffectCache.get(userId);
 
-            console.log(userTime);
             if (userTime - Date.now() > 0) return {
                 success: false,
                 message: `Aguarde *${timeDuration(userTime, "future")}* para usar o efeito.`
