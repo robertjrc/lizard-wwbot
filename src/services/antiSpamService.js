@@ -27,7 +27,7 @@ export class AntiSpamService {
             const response = await this.#setTimemout(groupId, memberId);
 
             let text = `Duração: *${response.timeRef}*\n`;
-            text += `\nMotivo: *${response.reason}*\n\n`;
+            text += `Motivo: *${response.reason}*\n\n`;
             text += "Durante esse período, você não poderá usar os comandos do bot."
 
             return { success: true, message: text };
@@ -40,7 +40,7 @@ export class AntiSpamService {
     static async #setTimemout(groupId, memberId) {
         const timeoutForm = {
             timeRef: "30m",
-            reason: "Envio excessivo de comandos."
+            reason: "Uso excessivo de comandos."
         }
 
         await Group.setTimeout(groupId, memberId, timeoutForm);
