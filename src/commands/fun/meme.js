@@ -6,10 +6,14 @@ import { msgResult } from "../../utils/messageResult.js";
 import { MessageMedia } from "../../lib/wwbotjs.js";
 
 export default {
-    name: "reddit",
+    name: "meme",
     category: "diversão",
     wait: true,
-    desc: "Retorna uma imagem aleatória de um subreddit.",
+    desc: `
+        Retorna uma imagem 
+        de um meme aleatório
+        a partir de um subreddit.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
         const { reddit_api } = await importJson("src/data/URLs.json");
         const url = new URL(reddit_api);
@@ -21,25 +25,26 @@ export default {
         try {
             const { data } = await axios.get(url.href);
 
-            const redditProps = {
+            const memeProps = {
                 title: data.title,
                 subreddit: data.subreddit,
                 postlink: data.postLink,
                 img_url: data.url,
             }
 
-            let text = `*${redditProps.title}*\n`;
-            text += `${redditProps.subreddit}\n\n`;
-            text += `${redditProps.postlink}`;
+            let text = `*${memeProps.title}*\n`;
+            text += `${memeProps.subreddit}\n\n`;
+            text += `${memeProps.postlink}`;
 
             return await msg.reply(
-                await MessageMedia.fromUrl(redditProps.img_url),
+                await MessageMedia.fromUrl(memeProps.img_url),
                 null,
                 { caption: text });
-        } catch (_) {
+        } catch (error) {
+            console.log(error);
             return await msg.reply(msgResult("error", {
                 title: "não foi possível",
-                message: "Não possível obter o subreddit." 
+                message: "Não possível obter o meme."
             }));
         }
     }
