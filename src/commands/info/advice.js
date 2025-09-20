@@ -10,15 +10,17 @@ export default {
     desc: "Retorna um conselho aleatório.",
     async execute(msg) {
         const { advice_api } = await importJson("src/data/URLs.json");
-        const { status, data } = await axios(advice_api);
 
-        if (status !== 200) {
+        try {
+            const { data } = await axios(advice_api);
+
+            return await msg.reply(await (new PopCatService().translate(data.slip.advice, "pt")));
+        } catch (error) {
+            console.error(error);
             return await msg.reply(msgResult("error", {
                 title: "não foi possível",
                 message: "Não foi possível obter o conselho."
             }));
         }
-
-        return await msg.reply(await (new PopCatService().translate(data.slip.advice, "pt")));
     }
 }
