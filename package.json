@@ -1,6 +1,6 @@
 {
     "name": "lizard-wwbot",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "main": "index.js",
     "type": "module",
     "license": "MIT",
@@ -15,6 +15,7 @@
         "group-analyzer": "robertjrc/group-analyzer-api#v1.2.3",
         "gtts": "^0.2.1",
         "guess-flag": "robertjrc/guess-flag-api#1.0.6",
+        "hangman-game": "robertjrc/hangman-game-api#v2.1.1",
         "node-cache": "^5.1.2",
         "qrcode-terminal": "^0.12.0",
         "sharp": "^0.34.3",
