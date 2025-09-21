@@ -1,9 +1,8 @@
 import { existsSync, mkdirSync } from "node:fs";
 import fs from "node:fs/promises";
 import { RNG } from "../utils/RNG.js";
-import { join, dirname } from "node:path";
+import { join } from "node:path";
 import { isAdmin } from "../helpers/isAdmin.js";
-import { timeDuration } from "../helpers/timeDuration.js";
 import { importJson } from "../utils/importJson.js";
 
 export class DickGrowerService {
@@ -52,7 +51,7 @@ export class DickGrowerService {
             return await this.msg.reply(text);
         }
 
-        if (!this.#isTime(member.nextAttemp).success) {
+        if (!this.#isTime(member.nextAttemp)) {
             if (member.isAlert) return;
 
             const alertMessage = await this.#alertMessage(`*${member.name}*`, `*${this.#formatDate(new Date(member.nextAttemp))}*`);
@@ -105,12 +104,12 @@ export class DickGrowerService {
 
         const topThreeMembers = data.members.slice(0, 3);
         const othersMembers = data.members.slice(3);
-        const medal = ["🥇", "🥈", "🥉"];
+        const medals = ["🥇", "🥈", "🥉"];
 
         for (let i = 0; i < topThreeMembers.length; i++) {
             index += 1;
             text += `${index}° *@${topThreeMembers[i].name}* ─ ${topThreeMembers[i].cm}cm `;
-            text += `${medal[i]} ${this.#arrowPosition(index, topThreeMembers[i].lastRank)}\n`;
+            text += `${medals[i]} ${this.#arrowPosition(index, topThreeMembers[i].lastRank)}\n`;
         }
 
         for (let i = 0; i < othersMembers.length; i++) {
@@ -226,22 +225,11 @@ export class DickGrowerService {
     }
 
     #isTime(time) {
-        const diffInMillis = time - Date.now();
-
-        if (diffInMillis < 0) return { success: true }
-
-        return {
-            success: false,
-            result: timeDuration(time, "future")
-        };
+        return ((time - Date.now()) < 0) ? true : false;
     }
 
     #formatDate(date) {
-        return date.toLocaleTimeString("pt-BR",
-            {
-                hour: "2-digit",
-                minute: "2-digit"
-            });
+        return date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
     }
 
 
@@ -262,7 +250,7 @@ export class DickGrowerService {
     }
 
     async #alertMessage(playerName, time) {
-        const messages = await importJson("src/data/dickGrowerAlertMessages.json");
+        const messages = (await importJson("src/data/dickGrowerMessages.json")).alertMessages;
 
         let message = messages[RNG(messages.length, 0)];
 
@@ -273,7 +261,7 @@ export class DickGrowerService {
     }
 
     async #growMessage(playerName, newCm, currentCm) {
-        const messages = await importJson("src/data/dickGrowerMessages.json");
+        const messages = (await importJson("src/data/dickGrowerMessages.json")).growMessages;
 
         let message = messages[RNG(messages.length, 0)];
 
