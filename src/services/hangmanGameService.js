@@ -94,7 +94,7 @@ export class HangmanGameService {
 
         const hangmanResponse = this.#group.hangmanVerify(data.current_info.hangman_level);
 
-        if (hangmanResponse.success) {
+        if (hangmanResponse) {
             const playerLose = this.#player.wrongAnswer(player);
             player = playerLose;
 
