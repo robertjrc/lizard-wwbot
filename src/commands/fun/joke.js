@@ -16,6 +16,6 @@ export default {
             }));
         }
 
-        return await msg.reply(response.data);
+        return await msg.reply(`🥸 ${response.data}`);
     }
 }
