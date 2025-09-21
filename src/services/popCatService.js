@@ -66,7 +66,7 @@ export class PopCatService {
     }
 
     async npm(packageName) {
-        this.#url.pathname = "/npm"
+        this.#url.pathname = "/npm";
         this.#url.searchParams.append("q", packageName);
 
         const { data } = await axios.get(this.#url.href);
@@ -93,7 +93,7 @@ export class PopCatService {
     }
 
     async steam(gameName) {
-        this.#url.pathname = "/steam"
+        this.#url.pathname = "/steam";
         this.#url.searchParams.append("q", gameName);
 
         const { data } = await axios.get(this.#url.href);
@@ -120,7 +120,7 @@ export class PopCatService {
     }
 
     async periodicTable() {
-        this.#url.pathname = "/periodic-table/random"
+        this.#url.pathname = "/periodic-table/random";
 
         const { data } = await axios.get(this.#url.href);
 
@@ -143,6 +143,85 @@ export class PopCatService {
                 discovered_by: data.discovered_by,
                 img_url: data.image,
                 summary: await this.translate(data.summary, "pt")
+            }
+        };
+    }
+
+    async pickuplines() {
+        this.#url.pathname = "/pickuplines";
+
+        const { data } = await axios.get(this.#url.href);
+
+        if (data.error) {
+            return {
+                success: false,
+                message: await this.translate(data.error, "pt")
+            }
+        }
+
+        return {
+            success: true,
+            data: await this.translate(data.pickupline, "pt")
+        };
+    }
+
+    async showerThought() {
+        this.#url.pathname = "/showerthoughts";
+
+        const { data } = await axios.get(this.#url.href);
+
+        if (data.error) {
+            return {
+                success: false,
+                message: await this.translate(data.error, "pt")
+            }
+        }
+
+        return {
+            success: true,
+            data: await this.translate(data.result, "pt")
+        };
+    }
+
+    async randomColor() {
+        this.#url.pathname = "/randomcolor";
+
+        const colorRand = await axios.get(this.#url.href);
+
+        if (colorRand.error) {
+            return {
+                success: false,
+                message: await this.translate(colorRand.error, "pt")
+            }
+        }
+
+        this.#url.pathname = `/color/${colorRand.data.hex}`;
+
+        const { data } = await axios.get(this.#url.href);
+
+        return {
+            success: true,
+            data: {
+                name: await this.translate(data.name, "pt"),
+                hex: data.hex,
+                rgb: data.rgb,
+                hsl: data.hsl_string,
+                brightened: data.brightened,
+                img_url: data.color_image
+            }
+        };
+    }
+
+    async randomCar() {
+        this.#url.pathname = "/car";
+
+        const { data } = await axios.get(this.#url.href);
+
+        return {
+            success: true,
+            data: { 
+                title: data.title.split(" [")[0],
+                img_url: data.image
             }
         };
     }
