@@ -1,5 +1,6 @@
 import { Group } from "group-analyzer";
 import NodeCache from "node-cache";
+import { relativeTime } from "../helpers/relativeTime.js";
 
 const usersStorage = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
@@ -26,9 +27,9 @@ export class AntiSpamService {
 
             const response = await this.#setTimemout(groupId, memberId);
 
-            let text = `Duração: *${response.timeRef}*\n`;
+            let text = `Duração: *${relativeTime(Date.now() + 1800000, "future")}*\n`;
             text += `Motivo: *${response.reason}*\n\n`;
-            text += "Durante esse período, você não poderá usar os comandos do bot."
+            text += "Durante esse período, você não poderá usar os comandos do bot.";
 
             return { success: true, message: text };
         }
