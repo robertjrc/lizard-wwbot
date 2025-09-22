@@ -1,5 +1,6 @@
 import { Group, Member } from "group-analyzer";
 import { msgResult } from "../../utils/messageResult.js";
+import { relativeTime } from "../../helpers/relativeTime.js";
 
 export default {
     name: "timeout",
@@ -7,8 +8,11 @@ export default {
     category: "moderação",
     admin: true,
     desc: `
-        Impede o usuário de executar comandos temporariamente.
-        É possível definir a duração e opcionalmente um motivo para o bloqueio.
+        Impede o usuário de executar
+        comandos temporariamente.
+        É possível definir a duração
+        e opcionalmente um motivo para
+        o bloqueio.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { chat, args }) {
         if (!args) {
@@ -88,10 +92,19 @@ export default {
 
         await Group.setTimeout(groupId, memberId, { timeRef, reason });
 
-        let text = `Membro: *@${memberId.split("@")[0]}*\n`
-        text += `Duração: *${timeRef}*\n`
-        text += `Motivo: *${reason}*\n\n`
-        text += `Durante esse período, *@${memberId.split("@")[0]}* não poderá usar os comandos do bot.`
+        let duration = 0;
+
+        switch (type) {
+            case "s": duration = time * 1000; break;
+            case "m": duration = time * 60 * 1000; break;
+            case "h": duration = time * 60 * 60 * 1000; break;
+            case "d": duration = time * 24 * 60 * 60 * 1000; break;
+        }
+
+        let text = `Membro: *@${memberId.split("@")[0]}*\n`;
+        text += `Duração: *${relativeTime(Date.now() + duration, "future")}*\n`;
+        text += `Motivo: *${reason}*\n\n`;
+        text += `Durante esse período, *@${memberId.split("@")[0]}* não poderá usar os comandos do bot.`;
 
         let result = msgResult("success", {
             title: "timeout aplicado",
