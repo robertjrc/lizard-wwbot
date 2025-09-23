@@ -6,6 +6,10 @@ export default {
     params: ["<cash>", "<info>"],
     category: "diversão",
     desc: `
+        Simula uma máquina caça-níquel,
+        retornando combinações aleatórias
+        de símbolos e indicando vitória
+        ou derrota conforme o resultado.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
         if (!args) {
