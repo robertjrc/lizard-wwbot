@@ -10,36 +10,36 @@ export class PopCatService {
     async joke() {
         this.#url.pathname = "/joke";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: "Não foi possível obter a piada."
+                message: res.message
             }
         }
 
         return {
             success: true,
-            data: await this.translate(data.joke, "pt")
+            data: await this.translate(res.data.joke, "pt")
         };
     }
 
     async fact() {
         this.#url.pathname = "/fact";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: "Não foi possível obter o fato aleatório."
+                message: res.message
             }
         }
 
         return {
             success: true,
-            data: await this.translate(data.fact, "pt")
+            data: await this.translate(res.data.fact, "pt")
         };
     }
 
@@ -47,20 +47,20 @@ export class PopCatService {
         this.#url.pathname = "/lyrics";
         this.#url.searchParams.append("song", song);
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
             data: {
-                lyrics: data.message.lyrics,
-                url: data.message.url
+                lyrics: res.data.message.lyrics,
+                url: res.data.message.url
             }
         };
     }
@@ -69,25 +69,25 @@ export class PopCatService {
         this.#url.pathname = "/npm";
         this.#url.searchParams.append("q", packageName);
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
             data: {
-                name: data.name,
-                version: data.version,
-                description: await this.translate(data.description, "pt"),
-                author: data.author,
-                last_published: data.last_published,
-                repository: data.repository || null,
-                downloads_this_year: data.downloads_this_year
+                name: res.data.name,
+                version: res.data.version,
+                description: await this.translate(res.data.description, "pt"),
+                author: res.data.author,
+                last_published: res.data.last_published,
+                repository: res.data.repository || null,
+                downloads_this_year: res.data.downloads_this_year
             }
         };
     }
@@ -96,25 +96,25 @@ export class PopCatService {
         this.#url.pathname = "/steam";
         this.#url.searchParams.append("q", gameName);
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
             data: {
-                type: data.type,
-                name: data.name,
-                description: await this.translate(data.description, "pt"),
-                website: data.website,
-                developers: data.developers,
-                publishers: data.publishers,
-                price: data.price
+                type: res.data.type,
+                name: res.data.name,
+                description: await this.translate(res.data.description, "pt"),
+                website: res.data.website,
+                developers: res.data.developers,
+                publishers: res.data.publishers,
+                price: res.data.price
             }
         };
     }
@@ -122,27 +122,27 @@ export class PopCatService {
     async periodicTable() {
         this.#url.pathname = "/periodic-table/random";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
             data: {
-                name: data.name,
-                symbol: data.symbol,
-                atomic_number: data.atomic_number,
-                atomic_mass: data.atomic_mass,
-                period: data.period,
-                phase: data.phase,
-                discovered_by: data.discovered_by,
-                img_url: data.image,
-                summary: await this.translate(data.summary, "pt")
+                name: res.data.name,
+                symbol: res.data.symbol,
+                atomic_number: res.data.atomic_number,
+                atomic_mass: res.data.atomic_mass,
+                period: res.data.period,
+                phase: res.data.phase,
+                discovered_by: res.data.discovered_by,
+                img_url: res.data.image,
+                summary: await this.translate(res.data.summary, "pt")
             }
         };
     }
@@ -150,36 +150,36 @@ export class PopCatService {
     async pickuplines() {
         this.#url.pathname = "/pickuplines";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
-            data: await this.translate(data.pickupline, "pt")
+            data: await this.translate(res.data.pickupline, "pt")
         };
     }
 
     async showerThought() {
         this.#url.pathname = "/showerthoughts";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        if (data.error) {
+        if (!res.success) {
             return {
                 success: false,
-                message: await this.translate(data.error, "pt")
+                message: res.message
             }
         }
 
         return {
             success: true,
-            data: await this.translate(data.result, "pt")
+            data: await this.translate(res.data.result, "pt")
         };
     }
 
@@ -215,14 +215,39 @@ export class PopCatService {
     async randomCar() {
         this.#url.pathname = "/car";
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
+
+        if (!res.success) {
+            return {
+                success: false,
+                message: res.message
+            }
+        }
 
         return {
             success: true,
-            data: { 
-                title: data.title.split(" [")[0],
-                img_url: data.image
+            data: {
+                title: res.data.title.split(" [")[0],
+                img_url: res.data.image
             }
+        };
+    }
+
+    async eightBall() {
+        this.#url.pathname = "/8ball";
+
+        const res = await this.req(this.#url.href);
+
+        if (!res.success) {
+            return {
+                success: false,
+                message: res.message
+            }
+        }
+
+        return {
+            success: true,
+            data: await this.translate(res.data.answer, "pt")
         };
     }
 
@@ -231,8 +256,38 @@ export class PopCatService {
         this.#url.searchParams.append("to", lang);
         this.#url.searchParams.append("text", text);
 
-        const { data } = await axios.get(this.#url.href);
+        const res = await this.req(this.#url.href);
 
-        return (data.error) ? "Não foi possível traduzir." : data.translated;
+        if (!res.success) {
+            return {
+                success: false,
+                message: res.message
+            }
+        }
+
+        return res.data.translated;
+    }
+
+    async req(url) {
+        try {
+            const { data } = await axios.get(url);
+
+            if (data.error) {
+                return {
+                    success: false,
+                    message: await this.translate(data.error, "pt")
+                }
+            }
+
+            return {
+                success: true,
+                data
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: "Não foi possível."
+            }
+        }
     }
 }
