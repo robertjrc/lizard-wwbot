@@ -1,6 +1,6 @@
 {
     "name": "lizard-wwbot",
-    "version": "1.3.2",
+    "version": "1.4.0",
     "main": "index.js",
     "type": "module",
     "license": "MIT",
