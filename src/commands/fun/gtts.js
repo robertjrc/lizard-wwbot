@@ -84,11 +84,7 @@ export default {
             }
         })
 
-        await msg.reply(
-            MessageMedia.fromFilePath(tempfile),
-            null,
-            { sendAudioAsVoice: true }
-        );
+        await msg.reply(MessageMedia.fromFilePath(tempfile));
 
         return await fs.unlink(tempfile);
     }
