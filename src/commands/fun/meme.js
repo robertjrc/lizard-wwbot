@@ -18,7 +18,12 @@ export default {
         const { reddit_api } = await importJson("src/data/URLs.json");
         const url = new URL(reddit_api);
 
-        const subreddits = ["ShitpostBR", "BrazilianShitpost", "BRshitpost"];
+        const subreddits = [
+            "ShitpostBR",
+            "BrazilianShitpost",
+            "BRshitpost",
+            "MemesBR"
+        ];
 
         url.pathname += `/${subreddits[RNG(subreddits.length, 0)]}`;
 
