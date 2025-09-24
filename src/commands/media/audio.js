@@ -18,15 +18,15 @@ export default {
         const audioEffect = new AudioEffectService();
 
         if (args === "effects") {
-            let text = `┌──⊣〔 *Efeitos disponíveis* 〕\n`;
-            text += "│\n";
+            let text = `┏━━【 *Efeitos disponíveis* 】\n`;
+            text += "┃\n";
 
             for (let effect in audioEffect.getEffects()) {
-                text += `├ ${effect}\n`;
+                text += `┣ ${effect}\n`;
             }
 
-            text += "│\n";
-            text += "└─⊣";
+            text += "┃\n";
+            text += "┗━━";
 
             return await msg.reply(text);
         }
