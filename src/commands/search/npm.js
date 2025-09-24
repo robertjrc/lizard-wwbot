@@ -50,23 +50,23 @@ export default {
         }
 
 
-        let text = `┌──⊣〔 *${packageProps.name}* 〕v${packageProps.version}\n`;
-        text += "│\n";
-        text += `├ 👤 *Author*\n`;
-        text += `│  └ ${packageProps.author}\n`;
-        text += "│\n";
-        text += `├ 🗓️ *Última publicação*\n`;
-        text += `│  └ ${new Date(packageProps.last_published).toLocaleString("pt-BR", { dateStyle: "medium" })}\n`;
-        text += "│\n";
-        text += `├ 📥 *Baixado este ano*\n`;
-        text += `│  └ ${numberAbbreviation(Number(packageProps.downloads_this_year.replace(/,/g, "")))}\n`;
-        text += "│\n";
-        text += `├ 📜 *Descrição*\n`;
-        text += `│  └ ${packageProps.description}\n`;
-        text += "│\n";
-        text += `├ 🔗 ${packageProps.repository}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        let text = `┏━━【 *${packageProps.name}* 】v${packageProps.version}\n`;
+        text += "┃\n";
+        text += `┣ 👤 *Author*\n`;
+        text += `┃  └ ${packageProps.author}\n`;
+        text += "┃\n";
+        text += `┣ 🗓️ *Última publicação*\n`;
+        text += `┃  └ ${new Date(packageProps.last_published).toLocaleString("pt-BR", { dateStyle: "medium" })}\n`;
+        text += "┃\n";
+        text += `┣ 📥 *Baixado este ano*\n`;
+        text += `┃  └ ${numberAbbreviation(Number(packageProps.downloads_this_year.replace(/,/g, "")))}\n`;
+        text += "┃\n";
+        text += `┣ 📜 *Descrição*\n`;
+        text += `┃  └ ${packageProps.description}\n`;
+        text += "┃\n";
+        text += `┣ 🔗 ${packageProps.repository}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text, null, { linkPreview: true });
     }
