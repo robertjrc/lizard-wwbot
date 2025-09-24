@@ -18,20 +18,20 @@ export default {
         const { version } = await importJson("package.json");
         const modulesEmoji = await importJson("src/data/modulesEmoji.json");
 
-        let text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
-        text += "│\n";
+        let text = `┏━━【 *${nickname}* 】v${version}\n`;
+        text += "┃\n";
 
         if (!args) {
             const { modules } = await getModules();
 
             for (let module of modules) {
-                text += `├ *${capitalize(module[0])}* (${module[1].length})\n`;
+                text += `┣ *${capitalize(module[0])}* (${module[1].length})\n`;
             }
 
-            text += "│\n";
-            text += `├${prefix}categoria *<category>*\n`;
-            text += "│\n";
-            text += "└──⊣";
+            text += "┃\n";
+            text += `┣${prefix}categoria *<category>*\n`;
+            text += "┃\n";
+            text += "┗━━━";
 
             return await msg.reply(text);
         }
@@ -44,7 +44,7 @@ export default {
             }));
         }
 
-        text += `├ ${modulesEmoji[module[0].category]} *${capitalize(module[0].category)}* (${module.length})\n`;
+        text += `┣ ${modulesEmoji[module[0].category]} *${capitalize(module[0].category)}* (${module.length})\n`;
 
         const cmdFormat = (cmd, i) => {
             return (i + 1 === module.length)
@@ -53,13 +53,13 @@ export default {
         }
 
         module.forEach((cmd, i) => {
-            text += ("│ " + cmdFormat(cmd, i));
+            text += ("┃ " + cmdFormat(cmd, i));
         });
 
-        text += "│\n";
-        text += `├${prefix}help *<command>*\n`;
-        text += "│\n";
-        text += "└──⊣";
+        text += "┃\n";
+        text += `┣${prefix}help *<command>*\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text);
     }
