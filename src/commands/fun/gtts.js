@@ -20,14 +20,14 @@ export default {
         const languages = await importJson("src/data/gttsLanguages.json");
 
         if (args === "langs") {
-            let text = `┌──⊣〔 *Idiomas disponíveis* 〕\n`;
-            text += "│\n";
+            let text = `┏━━【 *Idiomas disponíveis* 】\n`;
+            text += "┃\n";
 
             for (let key in languages) {
-                text += `├ *${key}* -> ${languages[key]}\n`;
+                text += `┣ *${key}* -> ${languages[key]}\n`;
             }
-            text += "│\n";
-            text += "└─⊣";
+            text += "┃\n";
+            text += "┗━━";
 
             return await msg.reply(text);
         }
