@@ -15,14 +15,14 @@ export default {
 
         if (memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
 
-        let text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
-        text += "│\n"
-        text += `├ 👤 *${memberInfo.name}*\n`
-        text += `│  ├ Nível: *${memberInfo.level}*\n`;
-        text += `│  ├ Mensagens: *${(memberInfo.messageCount).toLocaleString()}*\n`;
-        text += `│  └ XP: *${memberInfo.xp}*/${memberInfo.xpRequired}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        let text = `┏━━【 *${nickname}* 】v${version}\n`;
+        text += "┃\n"
+        text += `┣ 👤 *${memberInfo.name}*\n`
+        text += `┃  ├ Nível: *${memberInfo.level}*\n`;
+        text += `┃  ├ Mensagens: *${(memberInfo.messageCount).toLocaleString()}*\n`;
+        text += `┃  └ XP: *${memberInfo.xp}*/${memberInfo.xpRequired}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return msg.reply(text);
     }
