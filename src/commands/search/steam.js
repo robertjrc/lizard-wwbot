@@ -47,30 +47,30 @@ export default {
             price: response.data.price
         }
 
-        let text = `┌──⊣〔 *${gameProps.name}* 〕\n`;
-        text += "│\n";
-        text += `├ 🕹️ *Tipo*\n`;
-        text += `│  └ ${gameProps.type}\n`;
-        text += "│\n";
-        text += `├ 💵 *Preço*\n`;
-        text += `│  └ ${gameProps.price}\n`;
-        text += "│\n";
-        text += `├ 🛠️ *Desenvolvedores*\n`;
+        let text = `┏━━【 *${gameProps.name}* 】\n`;
+        text += "┃\n";
+        text += `┣ 🕹️ *Tipo*\n`;
+        text += `┃  └ ${gameProps.type}\n`;
+        text += "┃\n";
+        text += `┣ 💵 *Preço*\n`;
+        text += `┃  └ ${gameProps.price}\n`;
+        text += "┃\n";
+        text += `┣ 🛠️ *Desenvolvedores*\n`;
         gameProps.developers.forEach((dev, i) => {
-            text += `│ ${(i + 1 === gameProps.developers.length) ? " └ " + dev + "\n" : " ├ " + dev + "\n"}`;
+            text += `┃ ${(i + 1 === gameProps.developers.length) ? " └ " + dev + "\n" : " ├ " + dev + "\n"}`;
         });
-        text += "│\n";
-        text += `├ 👥 *Editores*\n`;
+        text += "┃\n";
+        text += `┣ 👥 *Editores*\n`;
         gameProps.publishers.forEach((publisher, i) => {
-            text += `│ ${(i + 1 === gameProps.publishers.length) ? " └ " + publisher + "\n" : " ├ " + publisher + "\n"}`;
+            text += `┃ ${(i + 1 === gameProps.publishers.length) ? " └ " + publisher + "\n" : " ├ " + publisher + "\n"}`;
         });
-        text += "│\n";
-        text += `├ 📜 *Descrição*\n`;
-        text += `│  └ ${gameProps.description}\n`;
-        text += "│\n";
-        text += `├ 🔗 ${gameProps.website}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        text += "┃\n";
+        text += `┣ 📜 *Descrição*\n`;
+        text += `┃  └ ${gameProps.description}\n`;
+        text += "┃\n";
+        text += `┣ 🔗 ${gameProps.website}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text, null, { linkPreview: true });
     }
