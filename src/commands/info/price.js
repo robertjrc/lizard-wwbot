@@ -15,17 +15,17 @@ export default {
         let text;
 
         if (args === "coins") {
-            text = `┌──⊣〔 *Moedas disponíveis* 〕\n`;
-            text += "│\n";
+            text = `┏━━【 *Moedas disponíveis* 】\n`;
+            text += "┃\n";
 
             url.pathname = "/json/available/uniq";
             const { data } = await axios.get(url.href);
 
             for (let key in data) {
-                text += `├ *${key}:* ${data[key]}\n`;
+                text += `┣ *${key}:* ${data[key]}\n`;
             }
-            text += "│\n";
-            text += "└─⊣";
+            text += "┃\n";
+            text += "┗━━";
 
             return await msg.reply(text);
         }
@@ -61,30 +61,30 @@ export default {
                 updatedAt: result.create_date
             }
 
-            text = `┌──⊣〔 *${priceProps.label}* 〕\n`;
-            text += "│\n";
-            text += `├ 🛒 *Compra*\n`;
-            text += `│  └ $${Number(priceProps.buy).toFixed(2).replace(".", ",")}\n`;
-            text += "│\n";
-            text += `├ 💸 *Venda*\n`;
-            text += `│  └ $${Number(priceProps.sale).toFixed(2).replace(".", ",")}\n`;
-            text += "│\n";
-            text += `├ 📈 *Máximo*\n`;
-            text += `│  └ $${Number(priceProps.max).toFixed(2).replace(".", ",")}\n`;
-            text += "│\n";
-            text += `├ 📉 *Mínimo*\n`;
-            text += `│  └ $${Number(priceProps.min).toFixed(2).replace(".", ",")}\n`;
-            text += "│\n";
-            text += `├ 📊 *Variação*\n`;
-            text += `│  └ ${priceProps.variation}\n`;
-            text += "│\n";
-            text += `├ ‼️ *Porcentagem de variação*\n`;
-            text += `│  └ ${priceProps.variationPercent}%\n`;
-            text += "│\n";
-            text += `├ 🕣 *Última atualização*\n`;
-            text += `│  └ ${new Date(priceProps.updatedAt).toLocaleString("pt-BR", { dateStyle: "medium", hourCycle: "h24" })}\n`;
-            text += "│\n";
-            text += "└──⊣";
+            text = `┏━━【 *${priceProps.label}* 】\n`;
+            text += "┃\n";
+            text += `┣ 💵 *Compra*\n`;
+            text += `┃  └ $${Number(priceProps.buy).toFixed(2).replace(".", ",")}\n`;
+            text += "┃\n";
+            text += `┣ 💸 *Venda*\n`;
+            text += `┃  └ $${Number(priceProps.sale).toFixed(2).replace(".", ",")}\n`;
+            text += "┃\n";
+            text += `┣ 📈 *Máximo*\n`;
+            text += `┃  └ $${Number(priceProps.max).toFixed(2).replace(".", ",")}\n`;
+            text += "┃\n";
+            text += `┣ 📉 *Mínimo*\n`;
+            text += `┃  └ $${Number(priceProps.min).toFixed(2).replace(".", ",")}\n`;
+            text += "┃\n";
+            text += `┣ 📊 *Variação*\n`;
+            text += `┃  └ ${priceProps.variation}\n`;
+            text += "┃\n";
+            text += `┣ ‼️ *Porcentagem de variação*\n`;
+            text += `┃  └ ${priceProps.variationPercent}%\n`;
+            text += "┃\n";
+            text += `┣ 🕣 *Última atualização*\n`;
+            text += `┃  └ ${new Date(priceProps.updatedAt).toLocaleString("pt-BR")}\n`;
+            text += "┃\n";
+            text += "┗━━";
 
             return await msg.reply(text);
         } catch (error) {
