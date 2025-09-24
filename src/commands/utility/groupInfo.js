@@ -41,17 +41,17 @@ export default {
 
         for (let member of members) { if (isToday(member.lastMessageAt)) activites += 1; }
 
-        let text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
-        text += "│\n"
-        text += `├ 🏠 *${nameLimit(group.name)}*\n`
-        text += `│  ├ Admins: *${admins.length}*\n`;
-        text += `│  ├ Membros: *${group.memberCount}*\n`;
-        text += `│  ├ Ativos: *${activites}* (${(activites / group.memberCount).toFixed(1)}%)\n`;
-        text += `│  ├ Mensagens: *${numberAbbreviation(group.messageCount)}*\n`;
-        text += `│  ├ Atividade: *${relativeTime(group.registeredAt, "past")}*\n`;
-        text += `│  └ Criado em: *${new Date(group.createdAt).toLocaleString("pt-BR", { dateStyle: "short" })}*\n`;
-        text += "│\n";
-        text += "└──⊣";
+        let text = `┏━━【 *${nickname}* 】v${version}\n`;
+        text += "┃\n"
+        text += `┣ 🏠 *${nameLimit(group.name)}*\n`
+        text += `┃  ├ Admins: *${admins.length}*\n`;
+        text += `┃  ├ Membros: *${group.memberCount}*\n`;
+        text += `┃  ├ Ativos: *${activites}* (${(activites / group.memberCount).toFixed(1)}%)\n`;
+        text += `┃  ├ Mensagens: *${numberAbbreviation(group.messageCount)}*\n`;
+        text += `┃  ├ Atividade: *${relativeTime(group.registeredAt, "past")}*\n`;
+        text += `┃  └ Criado em: *${new Date(group.createdAt).toLocaleString("pt-BR", { dateStyle: "short" })}*\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text);
     }
