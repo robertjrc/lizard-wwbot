@@ -49,16 +49,16 @@ export default {
             return (name.length > charLimit) ? `${name.substring(0, charLimit)}...` : name;
         }
 
-        let text = `┌──⊣〔 *${shortName(cardProps.name)}* 〕 ${(cardProps.level) ? "Lv." + cardProps.level : ""}\n`;
-        text += "│\n";
-        text += `├ 🔥 *${cardProps.type}*\n`;
+        let text = `┏━━【 *${shortName(cardProps.name)}* 】 ${(cardProps.level) ? "Lv." + cardProps.level : ""}\n`;
+        text += "┃\n";
+        text += `┣ 🔥 *${cardProps.type}*\n`;
         cardPowers.forEach((card, i) => {
-            text += ("│  " + powersFormat(card, i));
+            text += ("┃  " + powersFormat(card, i));
         });
-        text += "│\n";
-        text += `├ ${cardProps.desc}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        text += "┃\n";
+        text += `┣ ${cardProps.desc}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(
             await MessageMedia.fromUrl(cardProps.img_url),
