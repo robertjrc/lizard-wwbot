@@ -17,28 +17,28 @@ export default {
 
         const { modules, commandsAmount } = await getModules();
 
-        let text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
-        text += "│\n";
-        text += `├ prefixo:  *${prefix}*\n`
-        text += `├ categorias:  *${modules.size}*\n`
-        text += `├ criado por:  *${owner}*\n`
-        text += `├ uptime:  *${timeDuration(global.uptime, "past")}*\n`
-        text += "│\n"
-        text += `│──⊣〔 *MENU* 〕(${commandsAmount})\n`
-        text += "│\n"
+        let text = `┏━━【 *${nickname}* 】v${version}\n`;
+        text += "┃\n";
+        text += `┣ prefixo:  *${prefix}*\n`
+        text += `┣ categorias:  *${modules.size}*\n`
+        text += `┣ criado por:  *${owner}*\n`
+        text += `┣ uptime:  *${timeDuration(global.uptime, "past")}*\n`
+        text += "┃\n"
+        text += `┃━━【 *MENU* 】(${commandsAmount})\n`
+        text += "┃\n"
 
         for (let command of modules) {
-            text += `├ ${modulesEmoji[command[0]]} ${capitalize(command[0])} (${command[1].length})\n`;
+            text += `┣ ${modulesEmoji[command[0]]} ${capitalize(command[0])} (${command[1].length})\n`;
             const subCommand = command[1].slice(0, 3);
 
             subCommand.forEach((cmd, i) => {
-                text += `│ ${(i + 1 === subCommand.length) ? " └" + prefix + cmd.name + "\n" : " ├" + prefix + cmd.name + "\n"}`;
+                text += `┃ ${(i + 1 === subCommand.length) ? " └" + prefix + cmd.name + "\n" : " ├" + prefix + cmd.name + "\n"}`;
             });
-            text += "│\n";
+            text += "┃\n";
         }
-        text += `├${prefix}help\n`;
-        text += "│\n";
-        text += "└──⊣";
+        text += `┣${prefix}help\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text);
     }
