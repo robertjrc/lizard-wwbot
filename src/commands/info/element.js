@@ -1,12 +1,18 @@
 import { PopCatService } from "../../services/popCatService.js"
 import { msgResult } from "../../utils/messageResult.js";
 import { MessageMedia } from "../../lib/wwbotjs.js";
+import { axdl } from "../../helpers/axdl.js";
 
 export default {
     name: "elemento",
     category: "informação",
     wait: true,
-    desc: "",
+    desc: `
+        Retorna informações sobre um elemento
+        químico aleatório da Tabela Periódica,
+        incluindo símbolo, número atômico e
+        principais propriedades.
+    `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
         const response = await (new PopCatService().periodicTable());
 
@@ -29,28 +35,33 @@ export default {
             summary: response.data.summary
         }
 
-        let text = `┌──⊣〔 *${elementProps.name}* 〕\n`;
-        text += "│\n";
-        text += `├ ⚛️ *Símbolo*\n`;
-        text += `│  └ ${elementProps.symbol}\n`;
-        text += `├ 🔢 *Número atômico*\n`;
-        text += `│  └ ${elementProps.atomic_number}\n`;
-        text += `├ 🔢 *Massa atômica*\n`;
-        text += `│  └ ${elementProps.atomic_mass}\n`;
-        text += `├ 🗓️ *Perído*\n`;
-        text += `│  └ ${elementProps.period}\n`;
-        text += `├ 🔥 *Fase*\n`;
-        text += `│  └ ${elementProps.phase}\n`;
-        text += `├ 🔎 *Descoberto por*\n`;
-        text += `│  └ ${elementProps.discovered_by}\n`;
-        text += "│\n";
-        text += `├ 📜 *Sumário*\n`;
-        text += `│  └ ${elementProps.summary}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        let text = `┏━━【 *${elementProps.name}* 】\n`;
+        text += "┃\n";
+        text += `┣ ⚛️ *Símbolo*\n`;
+        text += `┃  └ ${elementProps.symbol}\n`;
+        text += "┃\n";
+        text += `┣ 🔢 *Número atômico*\n`;
+        text += `┃  └ ${elementProps.atomic_number}\n`;
+        text += "┃\n";
+        text += `┣ 🔢 *Massa atômica*\n`;
+        text += `┃  └ ${elementProps.atomic_mass}\n`;
+        text += "┃\n";
+        text += `┣ 🗓️ *Perído*\n`;
+        text += `┃  └ ${elementProps.period}\n`;
+        text += "┃\n";
+        text += `┣ 🔥 *Fase*\n`;
+        text += `┃  └ ${elementProps.phase}\n`;
+        text += "┃\n";
+        text += `┣ 🔎 *Descoberto por*\n`;
+        text += `┃  └ ${elementProps.discovered_by}\n`;
+        text += "┃\n";
+        text += `┣ 📜 *Sumário*\n`;
+        text += `┃  └ ${elementProps.summary}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(
-            await MessageMedia.fromUrl(elementProps.img_url, { unsafeMime: true }),
+            new MessageMedia("image/jpeg", (await axdl(elementProps.img_url)).toString("base64"), `${Date.now()}.jpeg`),
             null,
             { caption: text });
     }
