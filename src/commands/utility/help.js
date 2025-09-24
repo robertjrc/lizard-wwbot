@@ -19,18 +19,18 @@ export default {
         let text;
 
         if (!args) {
-            text = `┌──⊣〔 *${nickname}* 〕v${version}\n`;
-            text += "│\n"
-            text += "├ *Lista as categorias*\n"
-            text += `│ └${prefix}categoria\n`
-            text += "│\n"
-            text += "├ *Obtém a categoria*\n"
-            text += `│ └${prefix}categoria *<category>*\n`
-            text += "│\n"
-            text += "├ *Obtém o comando*\n"
-            text += `│ └${prefix}help *<command>*\n`;
-            text += "│\n"
-            text += "└──⊣";
+            text = `┏━━【 *${nickname}* 】v${version}\n`;
+            text += "┃\n"
+            text += "┣ *Lista as categorias*\n"
+            text += `┃ └${prefix}categoria\n`
+            text += "┃\n"
+            text += "┣ *Obtém a categoria*\n"
+            text += `┃ └${prefix}categoria *<category>*\n`
+            text += "┃\n"
+            text += "┣ *Obtém o comando*\n"
+            text += `┃ └${prefix}help *<command>*\n`;
+            text += "┃\n"
+            text += "┗━━━";
 
             return await msg.reply(text);
         }
@@ -48,27 +48,27 @@ export default {
                 : `├${prefix}${command.name} ${"*" + param + "*"} \n`
         }
 
-        text = `┌──⊣〔 *${capitalize(command.name)}* 〕\n`;
-        text += "│\n";
-        text += `├ 📁 *Categoria*\n│  └ ${capitalize(command.category)}\n`;
-        text += "│\n";
+        text = `┏━━━〔 *${capitalize(command.name)}* 〕\n`;
+        text += "┃\n";
+        text += `┣ 📁 *Categoria*\n┃  └ ${capitalize(command.category)}\n`;
+        text += "┃\n";
         if (command.params) {
-            text += `├ ℹ️ *Parâmetro's*\n`;
+            text += `┣ ℹ️ *Parâmetro's*\n`;
             command.params.forEach((param, i) => {
-                text += ("│  " + paramFormat(param, i));
+                text += ("┃  " + paramFormat(param, i));
             });
-            text += "│\n";
+            text += "┃\n";
         }
         if (command.aliases) {
-            text += `├ 🔗 Referência's\n`;
+            text += `┣ 🔗 Referência's\n`;
             command.aliases.forEach((alias, i) => {
-                text += `│ ${(i + 1 == command.aliases.length) ? " └" + prefix + alias + "\n" : " ├" + prefix + alias + "\n"}`;
+                text += `┃ ${(i + 1 == command.aliases.length) ? " └" + prefix + alias + "\n" : " ├" + prefix + alias + "\n"}`;
             });
             text += "│\n";
         }
-        text += `├ 📜 *Descrição*\n│  └ ${command.desc}\n`;
-        text += "│\n";
-        text += "└──⊣";
+        text += `┣ 📜 *Descrição*\n┃  └ ${command.desc}\n`;
+        text += "┃\n";
+        text += "┗━━";
 
         return await msg.reply(text);
     }
