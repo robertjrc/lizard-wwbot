@@ -1,7 +1,6 @@
 import ytstream from "yt-stream";
 import { tempFile } from "../utils/tempFile.js";
 import { spawn } from "child_process";
-import ytdl from "@distube/ytdl-core";
 
 const storage = new Map();
 
@@ -44,16 +43,30 @@ export class YoutubeService {
             }
 
             const urlTomp3 = (url) => new Promise(async (resolve, reject) => {
-                const audioUrl = ytdl.filterFormats((await ytdl.getInfo(url)).formats, "audioonly")[0].url;
-                const tempfile = tempFile("mp3");
+                const ytProcess = spawn("yt-dlp", [
+                    "--get-url",
+                    "-f", "bestaudio",
+                    "--no-playlist",
+                    url
+                ]);
 
-                spawn("ffmpeg", [
-                    "-i", audioUrl, tempfile
-                ]).on("error", (err) => {
-                    return reject(err)
-                }).on("exit", async () => {
-                    return resolve(tempfile);
-                })
+                ytProcess.stdout.on("data", data => {
+                    const audioUrl = data.toString().trim();
+
+                    const tempfile = tempFile("mp3");
+
+                    spawn("ffmpeg", [
+                        "-i", audioUrl, tempfile
+                    ]).on("error", (err) => {
+                        return reject(err);
+                    }).on("exit", async () => {
+                        return resolve(tempfile);
+                    });
+                });
+
+                ytProcess.on('error', (err) => {
+                    reject(`Erro ao iniciar yt-dlp: ${err.message}`);
+                });
             });
 
             return result(true, {
