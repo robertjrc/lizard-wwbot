@@ -1,6 +1,7 @@
 import { Group, Member } from "group-analyzer";
 import { msgResult } from "../../utils/messageResult.js";
 import { relativeTime } from "../../helpers/relativeTime.js";
+import { getContactLid } from "../../utils/getContactLid.js";
 
 export default {
     name: "timeout",
@@ -14,7 +15,7 @@ export default {
         e opcionalmente um motivo para
         o bloqueio.
     `.replace(/\s+/g, ' ').trim(),
-    async execute(msg, { chat, args }) {
+    async execute(msg, { client, chat, args }) {
         if (!args) {
             return msg.reply(msgResult("alert", {
                 title: "sem parâmetro",
@@ -38,8 +39,10 @@ export default {
             }));
         }
 
+        if (!msg.mentionedIds[0]) return;
+
         const groupId = chat.id._serialized;
-        const memberId = info[0].split("@")[1] + "@c.us";
+        const memberId = msg.mentionedIds[0];
         const timeRef = info[1];
         const reason = info.slice(2).join(" ") || "Nenhum motivo fornecido.";
 
@@ -74,7 +77,7 @@ export default {
             }));
         }
 
-        const memberResponse = await Member.getByAssociation(memberId, groupId);
+        const memberResponse = await Member.getByAssociation(await getContactLid(client, memberId), groupId);
         if (!memberResponse.success) {
             return msg.reply(msgResult("error", {
                 title: "não foi possível",
