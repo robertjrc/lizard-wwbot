@@ -1,5 +1,6 @@
 import { Member } from "group-analyzer";
 import { importJson } from "../../utils/importJson.js";
+import { getContactLid } from "../../utils/getContactLid.js";
 
 export default {
     name: "perfil",
@@ -8,10 +9,10 @@ export default {
         Exibe a latência atual do bot em milissegundos,
         útil para verificar a responsividade da conexão.
     `.replace(/\s+/g, ' ').trim(),
-    async execute(msg, { chat }) {
+    async execute(msg, { client, chat }) {
         const { nickname } = await importJson("src/config/bot.json");
         const { version } = await importJson("package.json");
-        const memberInfo = (await Member.getByGroupId(msg.author, chat.id._serialized)).data;
+        const memberInfo = (await Member.getByGroupId(await getContactLid(client, msg.author), chat.id._serialized)).data;
 
         if (memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
 
