@@ -1,5 +1,4 @@
 import { MessageMedia } from "../../lib/wwbotjs.js";
-const { nickname } = await (await import("../../utils/importJson.js")).importJson("src/config/bot.json");
 import { imgToWebp } from "../../helpers/imgToWebp.js"
 import { videoResize } from "../../helpers/videoResize.js";
 import { msgResult } from "../../utils/messageResult.js";
@@ -14,6 +13,7 @@ export default {
     desc: "Cria figurinhas personalizadas a partir de imagens, vídeos ou GIFs.",
     async execute(msg, { args }) {
         const stickerMsg = await importJson("src/data/stickerMessages.json");
+        const { nickname } = await importJson("src/config/bot.json");
         const authorNickname = msg._data.notifyName;
         const MediaType = {
             image: { mimetype: 'image/webp', filename: `${Date.now()}.webp` },
