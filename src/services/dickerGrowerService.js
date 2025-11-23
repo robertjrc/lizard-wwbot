@@ -44,9 +44,14 @@ export class DickGrowerService {
 
             await this.#save(this.groupId, data);
 
-            text += await this.#growMessage(`*${newMember.name}*`, `*${newCm}cm*`, `*${newMember.cm}cm*`);
-            text += `você está em *${this.#getRank(data.members, newMember)}*° no ranque.\n\n`;
-            text += `próxima tentativa às *${this.#formatDate(new Date(newMember.nextAttemp))}*.`;
+            const medals = ["🥇", "🥈", "🥉"];
+            const rank = this.#getRank(data.members, newMember);
+
+            text += "🔞 *STATUS DO SEU PINTO* 🔞\n\n";
+            text += `🔥 *Ganho:* +${newCm}cm\n`;
+            text += `🍆 *Total:* ${newMember.cm}cm\n`;
+            text += `🏆 *Ranking:* ${rank}° ${(medals[rank - 1]) ? medals[rank - 1] : ""}\n\n`;
+            text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(newMember.nextAttemp))}*`;
 
             return await this.msg.reply(text);
         }
@@ -75,9 +80,14 @@ export class DickGrowerService {
 
         await this.#save(this.groupId, data);
 
-        text += await this.#growMessage(`*${member.name}*`, `*${newCm}cm*`, `*${member.cm}cm*`);
-        text += `você está em *${this.#getRank(data.members, member)}*° no ranque.\n\n`;
-        text += `próxima tentativa às *${this.#formatDate(new Date(member.nextAttemp))}*.`;
+        const medals = ["🥇", "🥈", "🥉"];
+        const rank = this.#getRank(data.members, member);
+
+        text += "🔞 *STATUS DO SEU PINTO* 🔞\n\n";
+        text += `🔥 *Ganho:* +${newCm}cm\n`;
+        text += `🍆 *Total:* ${member.cm}cm\n`;
+        text += `🏆 *Ranking:* ${rank}° ${(medals[rank - 1]) ? medals[rank - 1] : ""}\n\n`;
+        text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(member.nextAttemp))}*`;
 
         return await this.msg.reply(text);
     }
@@ -121,8 +131,8 @@ export class DickGrowerService {
         return await this.chat.sendMessage(text);
     }
 
-    async start() {
-        if (!isAdmin(this.chat, this.userId)) {
+    async start(client) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para iniciar o jogo.");
         }
 
@@ -152,8 +162,8 @@ export class DickGrowerService {
         return await this.msg.react("✅");
     }
 
-    async stop() {
-        if (!isAdmin(this.chat, this.userId)) {
+    async stop(client) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para parar o jogo.");
         }
 
@@ -169,8 +179,8 @@ export class DickGrowerService {
         return await this.msg.react("✅");
     }
 
-    async reset() {
-        if (!isAdmin(this.chat, this.userId)) {
+    async reset(client) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
         }
 
@@ -194,7 +204,8 @@ export class DickGrowerService {
 
         if (!existsSync(filePath)) return { success: false }
 
-        const data = JSON.parse(await fs.readFile(filePath, "utf8"));
+        const contect = await fs.readFile(filePath, "utf8");
+        const data = JSON.parse(contect);
 
         return {
             success: true,
@@ -210,7 +221,6 @@ export class DickGrowerService {
     #setAttemp() {
         return Date.now() + (3 * 60 * 60 * 1000);
     }
-
 
     #getRank(members, member) {
         members.sort((x, y) => {
@@ -231,7 +241,6 @@ export class DickGrowerService {
     #formatDate(date) {
         return date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
     }
-
 
     #arrowPosition(index, lastRank) {
         let text;

@@ -34,8 +34,8 @@ export default {
         switch (args) {
             case "crescer": await dick.grow(); break;
             case "rank": await dick.rank(); break;
-            case "start": await dick.start(); break;
-            case "stop": await dick.stop(); break
+            case "start": await dick.start(client); break;
+            case "stop": await dick.stop(client); break
             case "reset": await dick.reset(client); break;
             default: break;
         }
