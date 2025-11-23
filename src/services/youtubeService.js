@@ -136,7 +136,11 @@ export class YoutubeService {
             storage.delete(userId);
         }
 
-        storage.set(userId, Date.now() + songLength);
+        const date = new Date(Date.now() + songLength);
+        date.setSeconds(0);
+
+        storage.set(userId, date.getTime());
+
         return { success: true };
     }
 }
