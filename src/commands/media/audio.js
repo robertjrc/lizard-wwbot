@@ -42,7 +42,7 @@ export default {
 
         if (!quotedMsg.hasMedia || quotedMsg.type !== "audio") {
             return await msg.reply(msgResult("error", {
-                title: "não possível",
+                title: "não foi possível",
                 message: "O conteúdo marcado não é válido."
             }));
         }
