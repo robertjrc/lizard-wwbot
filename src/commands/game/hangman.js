@@ -27,8 +27,8 @@ export default {
         const hangman = new HangmanGameService(groupId, userId, chat, msg);
 
         switch (args) {
-            case "start": await hangman.start(); break
-            case "stop": await hangman.stop(); break
+            case "start": await hangman.start(client); break
+            case "stop": await hangman.stop(client); break
             case "reset": await hangman.reset(client); break
             default: await hangman.run(args, client); break;
         }

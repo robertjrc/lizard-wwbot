@@ -130,8 +130,8 @@ export class HangmanGameService {
         return;
     }
 
-    async start() {
-        if (!isAdmin(this.chat, this.playerId)) {
+    async start(client) {
+        if (!(await isAdmin(client, this.chat, this.playerId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para iniciar o jogo.");
         }
 
@@ -168,8 +168,8 @@ export class HangmanGameService {
         return await this.msg.react("✅");
     }
 
-    async stop() {
-        if (!isAdmin(this.chat, this.playerId)) {
+    async stop(client) {
+        if (!(await isAdmin(client, this.chat, this.playerId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para parar o jogo.");
         }
 
@@ -186,7 +186,7 @@ export class HangmanGameService {
     }
 
     async reset(client) {
-        if (!isAdmin(this.chat, this.playerId)) {
+        if (!(await isAdmin(client, this.chat, this.playerId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
         }
 
