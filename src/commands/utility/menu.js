@@ -2,6 +2,7 @@ import { capitalize } from "../../utils/capitalize.js";
 import { getModules } from "../../utils/commandRegistry.js"
 import { timeDuration } from "../../helpers/timeDuration.js";
 import { importJson } from "../../utils/importJson.js";
+import { MessageMedia } from "../../lib/wwbotjs.js";
 
 export default {
     name: "menu",
@@ -11,7 +12,7 @@ export default {
         categorias e alguns comandos no bot.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg) {
-        const { prefix, nickname, owner } = await importJson("src/config/bot.json");
+        const { prefix, nickname, owner, menu_pic } = await importJson("src/config/bot.json");
         const { version } = await importJson("package.json");
         const modulesEmoji = await importJson("src/data/modulesEmoji.json");
 
@@ -40,6 +41,6 @@ export default {
         text += "┃\n";
         text += "┗━━";
 
-        return await msg.reply(text);
+        return await msg.reply(await MessageMedia.fromUrl(menu_pic), null, { caption: text });
     }
 }
