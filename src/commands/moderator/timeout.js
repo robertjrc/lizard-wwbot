@@ -1,7 +1,6 @@
 import { Group, Member } from "group-analyzer";
 import { msgResult } from "../../utils/messageResult.js";
 import { relativeTime } from "../../helpers/relativeTime.js";
-import { getContactLid } from "../../utils/getContactLid.js";
 
 export default {
     name: "timeout",
@@ -70,18 +69,22 @@ export default {
             }));
         }
 
-        if (!chat.participants.some(member => member.id._serialized === memberId)) {
+        const pn = (memberId && memberId.endsWith("@lid")
+            ? (await client.getContactLidAndPhone(memberId))[0].pn
+            : memberId);
+
+        if (!chat.participants.some(member => member.id._serialized === pn)) {
             return msg.reply(msgResult("error", {
                 title: "não foi possível",
                 message: "Membro não encontrado."
             }));
         }
 
-        const memberResponse = await Member.getByAssociation(await getContactLid(client, memberId), groupId);
+        const memberResponse = await Member.getByAssociation(memberId, groupId);
         if (!memberResponse.success) {
             return msg.reply(msgResult("error", {
                 title: "não foi possível",
-                message: "O membro fornecido não é ativo."
+                message: "O membro fornecido não é ativo no grupo."
             }));
         }
 
