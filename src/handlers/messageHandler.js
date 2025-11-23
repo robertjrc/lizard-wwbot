@@ -5,7 +5,6 @@ import { msgResult } from "../utils/messageResult.js";
 import { timeoutVerify } from "../helpers/timeoutVerify.js";
 import { importJson } from "../utils/importJson.js";
 import { isAdmin } from "../helpers/isAdmin.js";
-import { getContactLid } from "../utils/getContactLid.js";
 
 const { prefix } = await importJson("src/config/bot.json");
 
@@ -13,7 +12,7 @@ export default async (client, msg) => {
     const chat = await msg.getChat();
 
     if (!chat.isGroup) return;
-    await analyze.on(chat, await getContactLid(client, msg.author));
+    await analyze.on(chat);
     if (!msg.body.startsWith(prefix)) return;
 
     const commandName = msg.body.split(prefix)[1].split(" ")[0].toLowerCase();
@@ -22,11 +21,11 @@ export default async (client, msg) => {
     const command = await getCommand(commandName);
     if (!command) return;
 
-    if (await timeoutVerify(chat.id._serialized, await getContactLid(client, msg.author))) return;
-    if (command.admin) if (!isAdmin(chat, msg.author)) return;
+    if (await timeoutVerify(chat.id._serialized, msg.author)) return;
+    if (command.admin) if (!(await isAdmin(client, chat, msg.author))) return;
     if (command.wait) msg.react("⏳");
 
-    (await AntiSpamService.check(chat.id._serialized, await getContactLid(client, msg.author)).then(res => {
+    (await AntiSpamService.check(chat.id._serialized, msg.author).then(res => {
         if (!res.message) return;
         msg.reply(msgResult("alert", {
             title: "você recebeu um timeout",
@@ -37,7 +36,7 @@ export default async (client, msg) => {
     try {
         return await command.execute(msg, { client, chat, args });
     } catch (error) {
-        console.error(error);
-        return await msg.reply("Erro ao executar o comando.");
+        console.log(error);
+        return await msg.reply("⚠️ *Erro genérico:* Ocorreu um erro ao processar o comando. Tente novamente mais tarde.");
     }
 }
