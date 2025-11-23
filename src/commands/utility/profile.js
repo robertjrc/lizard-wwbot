@@ -1,5 +1,4 @@
 import { Member } from "group-analyzer";
-import { importJson } from "../../utils/importJson.js";
 import { getContactLid } from "../../utils/getContactLid.js";
 
 export default {
@@ -10,20 +9,16 @@ export default {
         útil para verificar a responsividade da conexão.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { client, chat }) {
-        const { nickname } = await importJson("src/config/bot.json");
-        const { version } = await importJson("package.json");
         const memberInfo = (await Member.getByGroupId(await getContactLid(client, msg.author), chat.id._serialized)).data;
 
         if (memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
 
-        let text = `┏━━【 *${nickname}* 】v${version}\n`;
-        text += "┃\n"
-        text += `┣ 👤 *${memberInfo.name}*\n`
-        text += `┃  ├ Nível: *${memberInfo.level}*\n`;
-        text += `┃  ├ Mensagens: *${(memberInfo.messageCount).toLocaleString()}*\n`;
-        text += `┃  └ XP: *${memberInfo.xp}*/${memberInfo.xpRequired}\n`;
-        text += "┃\n";
-        text += "┗━━";
+        let text = `Perfil de *${memberInfo.shortName}* 👤\n`;
+        text += "\n"
+        text += `*Nível:* ${memberInfo.level} 🌟\n`;
+        text += `*Mensagens:* ${(memberInfo.messageCount).toLocaleString()} 💬\n`;
+        text += `*XP:* *${memberInfo.xp}*/${memberInfo.xpRequired} `;
+        text += `(${((memberInfo.xp / memberInfo.xpRequired) * 100).toFixed(0)}%) 📈\n`;
 
         return msg.reply(text);
     }
