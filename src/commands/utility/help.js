@@ -21,16 +21,16 @@ export default {
         if (!args) {
             text = `┏━━【 *${nickname}* 】v${version}\n`;
             text += "┃\n"
-            text += "┣ *Lista as categorias*\n"
-            text += `┃ └${prefix}categoria\n`
+            text += "┣ *● Lista as categorias*\n"
+            text += `┃ └ ${prefix}categoria\n`
             text += "┃\n"
-            text += "┣ *Obtém a categoria*\n"
-            text += `┃ └${prefix}categoria *<category>*\n`
+            text += "┣ *● Obtém a categoria*\n"
+            text += `┃ └ ${prefix}categoria *<category>*\n`
             text += "┃\n"
-            text += "┣ *Obtém o comando*\n"
-            text += `┃ └${prefix}help *<command>*\n`;
+            text += "┣ *● Obtém o comando*\n"
+            text += `┃ └ ${prefix}help *<command>*\n`;
             text += "┃\n"
-            text += "┗━━━";
+            text += "┗━━";
 
             return await msg.reply(text);
         }
@@ -48,7 +48,7 @@ export default {
                 : `├${prefix}${command.name} ${"*" + param + "*"} \n`
         }
 
-        text = `┏━━━〔 *${capitalize(command.name)}* 〕\n`;
+        text = `┏━━【 *${capitalize(command.name)}* 】\n`;
         text += "┃\n";
         text += `┣ 📁 *Categoria*\n┃  └ ${capitalize(command.category)}\n`;
         text += "┃\n";
