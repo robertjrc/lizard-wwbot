@@ -12,12 +12,10 @@ export default {
         const sent = await msg.reply(`🔄 Processando...`);
         const end = Date.now();
 
-        let text = "🏓 Pong!\n\n";
-        text += `📡 Ping: *${end - start}ms*\n`;
-        text += `⌛ Latência: *${Date.now() - (msg.timestamp * 1000)}ms*`;
+        const latency = end - start;
 
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        return await sent.edit(text);
+        return await sent.edit(`🏓 Pong!\n\n📡 Latência: *${latency}ms*`);
     }
 }
