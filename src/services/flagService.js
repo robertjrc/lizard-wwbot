@@ -106,8 +106,8 @@ export class FlagService {
         return await this.msg.react("❌");
     }
 
-    async start() {
-        if (!isAdmin(this.chat, this.userId)) {
+    async start(client) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para iniciar o jogo.");
         }
 
@@ -155,8 +155,8 @@ export class FlagService {
         return await this.msg.react("✅");
     }
 
-    async stop() {
-        if (!isAdmin(this.chat, this.userId)) {
+    async stop(client) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para parar o jogo.");
         }
 
@@ -173,7 +173,7 @@ export class FlagService {
     }
 
     async reset(client) {
-        if (!isAdmin(this.chat, this.userId)) {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
         }
 

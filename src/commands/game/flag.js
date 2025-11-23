@@ -26,8 +26,8 @@ export default {
         const flag = new FlagService(groupId, userId, chat, msg);
 
         switch (args) {
-            case "start": await flag.start(); break
-            case "stop": await flag.stop(); break
+            case "start": await flag.start(client); break
+            case "stop": await flag.stop(client); break
             case "reset": await flag.reset(client); break
             default: await flag.run(args, client); break;
         }
