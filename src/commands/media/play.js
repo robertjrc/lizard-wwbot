@@ -10,7 +10,7 @@ export default {
     wait: true,
     desc: "Baixa músicas a partir do YouTube.",
     async execute(msg, { args }) {
-        const charLimit = 60;
+        const charLimit = 255;
 
         if (!args) {
             return msg.reply(msgResult("alert", {
