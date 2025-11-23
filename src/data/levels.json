@@ -1,0 +1,541 @@
+[
+    {
+        "name": "burro",
+        "type": "burrice",
+        "emoji": "🧠",
+        "diagnosis": [
+            "Parabéns, sua burrice é nível *‘esqueceu a cabeça em casa’*. 😂",
+            "Burrice mediana, já perdeu o ônibus por pensar demais. 😉",
+            "Burrice controlada, só erra quando quer. 😎",
+            "GÊNIO! Sua burrice é 0, você é o Einstein dos espertos. 🔥"
+        ]
+    },
+    {
+        "name": "macaco",
+        "type": "macacagem",
+        "emoji": "🐒",
+        "diagnosis": [
+            "MACACO ALFA! Faz dancinha no topo da árvore. 🔥",
+            "Macacagem de elite, pula galho com estilo. 😎",
+            "Macaco comum, às vezes cai da árvore. 😉",
+            "Macaco de zoológico: come banana e dorme o dia todo. 😂"
+        ]
+    },
+    {
+        "name": "gay",
+        "type": "gayzice",
+        "emoji": "🏳️‍🌈",
+        "diagnosis": [
+            "GAY LENDÁRIO! Arco-íris inveja seu brilho. 🔥",
+            "Gay de respeito, causa suspiros por onde passa. 😎",
+            "Gayzinho em evolução, ainda tá saindo do armário. 😉",
+            "Gay de fachada: usa arco-íris só no filtro. 😂"
+        ]
+    },
+    {
+        "name": "gostoso",
+        "type": "gostosura",
+        "emoji": "😋",
+        "diagnosis": [
+            "GOSTOSO ABSOLUTO! Até dieta quebra por você. 🔥",
+            "Gostoso nível exportação, causa engarrafamento. 😎",
+            "Gostosinho meia-boca, passa no teste mas não brilha. 😉",
+            "Gostoso de micro-ondas: 30 seg e já tá frio. 😂"
+        ]
+    },
+    {
+        "name": "corno",
+        "type": "cornice",
+        "emoji": "🐂",
+        "diagnosis": [
+            "CORNO MÁXIMO! Chifre serve de cabide. 😂",
+            "Corno médio, já sente o vento nas orelhas. 😉",
+            "Cornice leve, só um chifrinho de estimação. 😎",
+            "CORNO ZERO! Sua cara tá intacta. 🔥"
+        ]
+    },
+    {
+        "name": "rico",
+        "type": "riqueza",
+        "emoji": "💰",
+        "diagnosis": [
+            "RICASSO! Banheira de notas de 100. 🔥",
+            "Rico de boa, come caviar no café. 😎",
+            "Riquinho de Instagram, finge até cansar. 😉",
+            "Pobre com filtro: rico só no Pix de 1 real. 😂"
+        ]
+    },
+    {
+        "name": "pobre",
+        "type": "pobreza",
+        "emoji": "😭",
+        "diagnosis": [
+            "POBRE DE MARCA MAIOR? Não, você é RICO de alma! 🔥",
+            "Pobreza light, come miojo gourmet. 😎",
+            "Pobre raiz, divide o ovo com o vizinho. 😉",
+            "Pobre nível hard: vende o rim pra pagar Wi-Fi. 😂"
+        ]
+    },
+    {
+        "name": "lindo",
+        "type": "lindeza",
+        "emoji": "💅",
+        "diagnosis": [
+            "LINDO ABSOLUTO! Espelho pede autógrafo. 🔥",
+            "Lindo de boa, causa suspiro controlado. 😎",
+            "Lindinho meia-boca, passa no teste do espelho. 😉",
+            "Lindo de filtro: sem ele é capa de filme de terror. 😂"
+        ]
+    },
+    {
+        "name": "feio",
+        "type": "feiura",
+        "emoji": "👹",
+        "diagnosis": [
+            "Feio hard: até o espelho trincou. 😂",
+            "Feio médio, luz apagada salva. 😉",
+            "feiura leve, assusta só de perfil. 😎",
+            "FEIO MÍTICO? Não, você é BONITO por dentro! 🔥"
+        ]
+    },
+    {
+        "name": "trouxa",
+        "type": "trouxice",
+        "emoji": "🤡",
+        "diagnosis": [
+            "TROUXA MÁSTER: já pagou conta de desconhecido. 😂",
+            "Trouxa médio, acredita em corrente de Whats. 😉",
+            "Trouxice light, paga mico de vez em quando. 😎",
+            "TROUXA ZERO! Você é o espertalhão. 🔥"
+        ]
+    },
+    {
+        "name": "qi",
+        "type": "QI",
+        "emoji": "🧠",
+        "diagnosis": [
+            "QI DE GÊNIO! Resolve cubo mágico no escuro. 🔥",
+            "QI alto, ganha no xadrez até sonhando. 😎",
+            "QI médio, sabe somar 2+2 sem calculadora. 😉",
+            "QI de micro-ondas: pisca 12:00 pra sempre. 😂"
+        ]
+    },
+    {
+        "name": "vesgo",
+        "type": "vesguice",
+        "emoji": "👀",
+        "diagnosis": [
+            "VESGO HARD: olhos brigam entre si. 😂",
+            "Vesgo médio, mira na mosca e acerta a parede. 😉",
+            "Vesguice light, só quando tá bêbado. 😎",
+            "VESGO ZERO! Olhos laser guiados. 🔥"
+        ]
+    },
+    {
+        "name": "bêbado",
+        "type": "bebedeira",
+        "emoji": "🍺",
+        "diagnosis": [
+            "BÊBADO LENDÁRIO! Bebe e ainda dirige conversa. 🔥",
+            "Bebedeira controlada, canta afinado. 😎",
+            "Bêbado médio, fala com poste. 😉",
+            "Bêbado nível chão: acorda com marca de azulejo na cara. 😂"
+        ]
+    },
+    {
+        "name": "safado",
+        "type": "safadeza",
+        "emoji": "😈",
+        "diagnosis": [
+            "SAFADO MÁXIMO! Diabo pede aula. 🔥",
+            "Safadeza de elite, manda nudes com classe. 😎",
+            "Safadinho leve, só olha de canto. 😉",
+            "Safado de fachada: cora até com emoji de berinjela. 😂"
+        ]
+    },
+    {
+        "name": "triste",
+        "type": "tristeza",
+        "emoji": "😢",
+        "diagnosis": [
+            "TRISTE HARD: chora até com propaganda de cachorro. 😂",
+            "Triste médio, ouve Adele no repeat. 😉",
+            "Tristeza light, chora só no final de filme. 😎",
+            "TRISTEZA ZERO! Você é o rei da zoeira. 🔥"
+        ]
+    },
+    {
+        "name": "alegre",
+        "type": "alegria",
+        "emoji": "😄",
+        "diagnosis": [
+            "ALEGRIA PURA! Contagia até planta. 🔥",
+            "Alegre de boa, ri de meme antigo. 😎",
+            "Alegrezinha forçada, sorri amarelo. 😉",
+            "Alegria de mentira: ri por fora, chora por dentro. 😂"
+        ]
+    },
+    {
+        "name": "saúde",
+        "type": "saúde",
+        "emoji": "💪",
+        "diagnosis": [
+            "SAÚDE DE AÇO! Come pregos no café. 🔥",
+            "Saúde boa, corre 5km sem morrer. 😎",
+            "Saúde mediana, espirra e já pensa em Covid. 😉",
+            "Saúde de isopor: quebra com vento. 😂"
+        ]
+    },
+    {
+        "name": "raiva",
+        "type": "raiva",
+        "emoji": "😡",
+        "diagnosis": [
+            "RAIVA HARD: morde travesseiro à noite. 😂",
+            "Raiva média, quebra controle no FIFA. 😉",
+            "Raiva light, xinga só no trânsito. 😎",
+            "RAIVA ZERO! Você é monge zen. 🔥"
+        ]
+    },
+    {
+        "name": "fiel",
+        "type": "fidelidade",
+        "emoji": "❤️",
+        "diagnosis": [
+            "FIEL ABSOLUTO! Cachorro inveja. 🔥",
+            "Fiel de boa, nem olha pro lado. 😎",
+            "Fiel duvidoso, flerta com o garçom. 😉",
+            "Fiel de mentira: tem backup no Tinder. 😂"
+        ]
+    },
+    {
+        "name": "mentira",
+        "type": "mentira",
+        "emoji": "🤥",
+        "diagnosis": [
+            "MENTIROSO PROFISSA: já convenceu médico que tá grávido. 😂",
+            "Mentira média, inventa dor de barriga. 😉",
+            "Mentirinha branca, só pra não magoar. 😎",
+            "MENTIRA ZERO! Verdade é sua marca. 🔥"
+        ]
+    },
+    {
+        "name": "fofo",
+        "type": "fofurice",
+        "emoji": "🐻",
+        "diagnosis": [
+            "FOFO MÁXIMO! Derrete gelo com abraço. 🔥",
+            "Fofo de boa, faz aham com a mãozinha. 😎",
+            "Fofinho forçado, parece comercial de margarina. 😉",
+            "Fofo de mentira: urso por fora, capeta por dentro. 😂"
+        ]
+    },
+    {
+        "name": "chato",
+        "type": "chatice",
+        "emoji": "😴",
+        "diagnosis": [
+            "CHATO HARD: mata grupo de Whats com ‘bom dia’. 😂",
+            "Chato médio, explica piada depois da graça. 😉",
+            "Chatice light, só quando tá de jejum. 😎",
+            "CHATO ZERO! Você é a festa. 🔥"
+        ]
+    },
+    {
+        "name": "falso",
+        "type": "falsidade",
+        "emoji": "😇",
+        "diagnosis": [
+            "FALSO MÁXIMO: beija e já planeja facada. 😂",
+            "Falso médio, fala mal e curte a foto. 😉",
+            "Falsidade light, sorri por trás da tela. 😎",
+            "FALSO ZERO! Transparente como água. 🔥"
+        ]
+    },
+    {
+        "name": "noia",
+        "type": "noia",
+        "emoji": "🌿",
+        "diagnosis": [
+            "NOIA HARD: fala com planta achando que é grampo. 😂",
+            "Noia média, acha que drone é FBI. 😉",
+            "Noia light, só checa porta 2x. 😎",
+            "NOIA ZERO! Zen até no apocalipse. 🔥"
+        ]
+    },
+    {
+        "name": "forte",
+        "type": "força",
+        "emoji": "💪",
+        "diagnosis": [
+            "FORTE ABSOLUTO! Levanta carro com um dedo. 🔥",
+            "Forte de boa, abre pote sem drama. 😎",
+            "Forte médio, faz flexão de joelho. 😉",
+            "Forte de isopor: vento leva. 😂"
+        ]
+    },
+    {
+        "name": "fraco",
+        "type": "fraqueza",
+        "emoji": "😓",
+        "diagnosis": [
+            "FRACO HARD: mosquito carrega. 😂",
+            "Fraco médio, abre lata e chora. 😉",
+            "Fraqueza light, só perde no braço de ferro. 😎",
+            "FRACO ZERO! Titânio humano. 🔥"
+        ]
+    },
+    {
+        "name": "carente",
+        "type": "carência",
+        "emoji": "🤗",
+        "diagnosis": [
+            "CARENTE HARD: abraça travesseiro com nome. 😂",
+            "Carente médio, responde próprio status. 😉",
+            "Carência light, só manda ‘??’ no Whats. 😎",
+            "CARENTE ZERO! Auto-suficiente master. 🔥"
+        ]
+    },
+    {
+        "name": "socafofo",
+        "type": "socafofice",
+        "emoji": "👊",
+        "diagnosis": [
+            "SOCAFOFO LENDÁRIO! Muro treme. 🔥",
+            "Socafofo de respeito, quebra cara com carinho. 😎",
+            "Socafofinho, dá tapinha e pede desculpa. 😉",
+            "Socafofo de algodão: dói mais o ego. 😂"
+        ]
+    },
+    {
+        "name": "hetero",
+        "type": "heterice",
+        "emoji": "🚹",
+        "diagnosis": [
+            "HETERO PURO! Macho alfa raiz. 🔥",
+            "Heterice de boa, come churras sem frescura. 😎",
+            "Hetero duvidoso, usa creme no cabelo. 😉",
+            "Hetero de fachada: chora com filme da Barbie. 😂"
+        ]
+    },
+    {
+        "name": "talarico",
+        "type": "talaricagem",
+        "emoji": "🕵️",
+        "diagnosis": [
+            "TALARICO MÁXIMO: já levou chifre por tabela. 😂",
+            "Talarico médio, manda DM disfarçado. 😉",
+            "Talaricagem light, só olha de longe. 😎",
+            "TALARICO ZERO! Respeito é lei. 🔥"
+        ]
+    },
+    {
+        "name": "sigma",
+        "type": "sigmatude",
+        "emoji": "🐺",
+        "diagnosis": [
+            "SIGMA ABSOLUTO! Lobo solitário alfa. 🔥",
+            "Sigmatude de elite, ignora regra social. 😎",
+            "Sigma wannabe, posta frase de impacto. 😉",
+            "Sigma de TikTok: vive com mãe e fala de independência. 😂"
+        ]
+    },
+    {
+        "name": "preguiçoso",
+        "type": "preguiça",
+        "emoji": "😴",
+        "diagnosis": [
+            "MESTRE SUPREMO DA PREGUIÇA! Respira por obrigação. 😪",
+            "Preguiçoso(a) lendário(a). Até o sofá te chama de rei. 🛋️👑",
+            "Tem preguiça, mas finge que tá ‘em home office’. 😴💻",
+            "Tão preguiçoso(a) que o sono pediu demissão e o controle remoto se mudou. 💀"
+        ]
+    },
+    {
+        "name": "sortudo",
+        "type": "sorte",
+        "emoji": "🍀",
+        "diagnosis": [
+            "ESCOLHIDO PELO UNIVERSO! Sorte corre no teu sangue. 🌌🍀",
+            "Se tropeça, cai num colchão de notas. A sorte te ama. 😎",
+            "Sorte meia-boca: ganha no bingo, perde no amor. 🎲",
+            "Tão azarado que se chover mulher, cai um boneco inflável com furo. 💀"
+        ]
+    },
+    {
+        "name": "divertido",
+        "type": "humor",
+        "emoji": "😂",
+        "diagnosis": [
+            "TÃO ENGRAÇADO(A) QUE DEVIA COBRAR INGRESSO PRA FALAR! 🎭🔥",
+            "Salva até segunda-feira chuvosa com uma piada. ☔🤣",
+            "Tenta ser engraçado, mas parece tiozão contando piada de 2012. 🥴",
+            "Se humor fosse crime, tu tava livre. Nem o cachorro ri. 😭💀"
+        ]
+    },
+    {
+        "name": "ciumento",
+        "type": "ciúme",
+        "emoji": "👀",
+        "diagnosis": [
+            "CIUMENTO PSICOPATA: já contratou detetive pro cachorro. 🕵️‍♂️💀",
+            "Ciumento médio: briga com o entregador. 🚴‍♂️",
+            "Ciumento light: só checa o celular de canto. 📱",
+            "CIÚME ZERO! Confia até no vento. 🕊️"
+        ]
+    },
+    {
+        "name": "gordo",
+        "type": "gordura",
+        "emoji": "🍔",
+        "diagnosis": [
+            "GORDAÇO MÁXIMO: entra de lado na porta giratória. 🚪💀",
+            "Gordo raiz: o cinto é só enfeite. 😅",
+            "Gordinho fitness: corre 2km e come 3 pizzas. 🏃‍♂️",
+            "MAGRO DE AÇO! Come alface e vira proteína. 🥗💪"
+        ]
+    },
+    {
+        "name": "maluco",
+        "type": "loucura",
+        "emoji": "🤪",
+        "diagnosis": [
+            "MALUCO DE CAMISA DE FORÇA: acha que é o Batman. 🦇💀",
+            "Maluco médio: usa meia diferente todo dia. 🧦",
+            "Maluquinho de boa: fala sozinho, mas com educação. 🗣️",
+            "LOUCURA CONTROLADA! Gênio excêntrico. 🎨🔥"
+        ]
+    },
+    {
+        "name": "fominha",
+        "type": "fome",
+        "emoji": "🍕",
+        "diagnosis": [
+            "FOMINHA ANIMAL: come a travessa e lambe o prato. 🐷💀",
+            "Fome média: guarda espaço pro doce. 🍰",
+            "Fominha light: repete o prato com jeitinho. 😋",
+            "FOME ZERO! Come por educação. 🥗"
+        ]
+    },
+    {
+        "name": "mentiroso",
+        "type": "mentira",
+        "emoji": "🤥",
+        "diagnosis": [
+            "MENTIROSO PROFISSIONAL: convenceu a mãe que é virgem. 👶💀",
+            "Mentira média: inventa dor de cabeça pra sair. 🤕",
+            "Mentirinha branca: só pra não magoar. 😇",
+            "VERDADE ABSOLUTA! Até mentira vira verdade. ✅"
+        ]
+    },
+    {
+        "name": "arrogante",
+        "type": "arrogância",
+        "emoji": "😤",
+        "diagnosis": [
+            "ARROGANTE MÁXIMO: acha que o sol nasce pra ele. ☀️💀",
+            "Arrogante médio: corrige até o Google. 📱",
+            "Arrogante light: só se acha um pouco. 😏",
+            "ARROGÂNCIA ZERO! Humildade é seu sobrenome. 🙏"
+        ]
+    },
+    {
+        "name": "sedutor",
+        "type": "sedução",
+        "emoji": "😘",
+        "diagnosis": [
+            "SEDUTOR LENDÁRIO! Olhar mata, voz derrete. 🔥",
+            "Sedutor de respeito: conquista até planta. 🌱",
+            "Sedutor meia-boca: usa cantada de 2015. 😬",
+            "SEDUÇÃO DE ISOPOR: afunda na primeira onda. 🌊💀"
+        ]
+    },
+    {
+        "name": "medroso",
+        "type": "medo",
+        "emoji": "😱",
+        "diagnosis": [
+            "MEDROSO HARD: tem medo até do próprio reflexo. 🪞💀",
+            "Medo médio: dorme com luz acesa. 💡",
+            "Medinho light: pula filme de terror. 📺",
+            "MEDO ZERO! Enfrenta leão com chinelo. 🦁"
+        ]
+    },
+    {
+        "name": "criativo",
+        "type": "criatividade",
+        "emoji": "🎨",
+        "diagnosis": [
+            "CRIATIVIDADE INFINITA! Inventa até nova cor. 🌈",
+            "Criativo de elite: meme vira arte. 🖼️",
+            "Criatividade média: copia com jeitinho. ✂️",
+            "CRIATIVIDADE ZERADA: desenha boneco de palito torto. 🖍️💀"
+        ]
+    },
+    {
+        "name": "romântico",
+        "type": "romance",
+        "emoji": "💕",
+        "diagnosis": [
+            "ROMÂNTICO POETA! Escreve carta de próprio punho. ✍️",
+            "Romântico de boa: lembra aniversário. 🎂",
+            "Romântico médio: manda áudio de 2min. 🎤",
+            "ROMÂNTICO DE MERCADO: amor com validade de 3 dias. 🏪💀"
+        ]
+    },
+    {
+        "name": "esportista",
+        "type": "esporte",
+        "emoji": "🏃‍♂️",
+        "diagnosis": [
+            "ATLETA OLÍMPICO! Medalha no peito 24h. 🥇",
+            "Esportista de fim de semana: corre atrás do ônibus. 🚌",
+            "Esporte médio: faz flexão no sofá. 🛋️",
+            "ESPORTISTA DE CONTROLE: joga FIFA e sua. 🎮💀"
+        ]
+    },
+    {
+        "name": "festeiro",
+        "type": "festa",
+        "emoji": "🎉",
+        "diagnosis": [
+            "FESTEIRO LENDÁRIO! Festa começa quando tu chega. 🕺",
+            "Festeiro de respeito: vira a noite dançando. 🌙",
+            "Festeiro médio: sai às 23h e volta às 2h. ⏰",
+            "FESTEIRO DE QUARTO: festa é Netflix + pipoca. 📺💀"
+        ]
+    },
+    {
+        "name": "organizado",
+        "type": "organização",
+        "emoji": "📋",
+        "diagnosis": [
+            "ORGANIZAÇÃO MILITAR! Até poeira tem horário. 🧹",
+            "Organizado de boa: agenda no celular. 📱",
+            "Organização média: acha as coisas ‘mais ou menos’. 🔍",
+            "DESORGANIZAÇÃO CAÓTICA: chave tá na geladeira. 🗝️❄️💀"
+        ]
+    },
+    {
+        "name": "inteligente",
+        "type": "inteligência",
+        "emoji": "🧠",
+        "diagnosis": [
+            "GÊNIO QUÂNTICO! Resolve o universo no café da manhã. ☕🌌",
+            "Inteligente pra caramba: ganha debate até dormindo. 😎",
+            "Inteligência média: sabe que 1+1=11 em binário. 🤓",
+            "INTELIGÊNCIA DE SABÃO: escorrega em tudo. 🧼💀"
+        ]
+    },
+    {
+        "name": "vaidoso",
+        "type": "vaidade",
+        "emoji": "🪞",
+        "diagnosis": [
+            "VAIDOSO NARCISO: beija o reflexo e pede em namoro. 😘💀",
+            "Vaidoso médio: selfie em qualquer ângulo. 📸",
+            "Vaidoso light: passa 10min no espelho. ⏰",
+            "VAIDOSO MÍNIMO! Sai de casa até com cara de sono. 😴"
+        ]
+    }
+]
