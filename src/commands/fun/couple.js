@@ -3,6 +3,7 @@ import { importJson } from "../../utils/importJson.js";
 
 export default {
     name: "casal",
+    params: ["<@user>"],
     category: "diversão",
     desc: `
         Seleciona aleatoriamente
@@ -13,7 +14,7 @@ export default {
         const coupleMessages = await importJson("src/data/coupleMessages.json");
 
         const n = chat.participants.length;
-        const member01 = chat.participants[RNG(n, 0)].id._serialized;
+        const member01 = (msg.hasQuotedMsg) ? (await msg.getQuotedMessage()).id.participant._serialized : chat.participants[RNG(n, 0)].id._serialized;
         const member02 = chat.participants[RNG(n, 0)].id._serialized;
 
         const message = coupleMessages[RNG(coupleMessages.length, 0)];
