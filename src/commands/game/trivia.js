@@ -25,8 +25,8 @@ export default {
         const trivia = new TriviaService(groupId, userId, chat, msg);
 
         switch (args) {
-            case "start": await trivia.start(); break
-            case "stop": await trivia.stop(); break
+            case "start": await trivia.start(client); break
+            case "stop": await trivia.stop(client); break
             case "reset": await trivia.reset(client); break
             default: await trivia.run(args, client); break;
         }
