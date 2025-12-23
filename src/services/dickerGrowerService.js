@@ -1,9 +1,10 @@
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import fs from "node:fs/promises";
 import { RNG } from "../utils/RNG.js";
 import { join } from "node:path";
 import { isAdmin } from "../helpers/isAdmin.js";
 import { importJson } from "../utils/importJson.js";
+import { timeDuration } from "../helpers/timeDuration.js";
 
 export class DickGrowerService {
     #storagePath = join(process.cwd(), `${process.env.STORAGE_PATH}/dickgrower_storage`);
@@ -27,42 +28,46 @@ export class DickGrowerService {
 
         const { data } = response;
 
-        const member = data.members.find(x => x.id === this.userId);
-        if (!member) {
+        const resetResponse = await this.#endSeasonVerify(data);
+        if (resetResponse.reseted) if (resetResponse.stop) return;
+
+        const player = data.players.find(x => x.id === this.userId);
+        if (!player) {
             const newCm = this.#cmGenerator();
 
-            const newMember = {
+            const newPlayer = {
                 id: this.userId,
                 name: this.msg._data.notifyName.split(" ")[0],
                 cm: newCm,
-                lastRank: (data.members.length + 1),
+                lastRank: (data.players.length + 1),
                 nextAttemp: this.#setAttemp(),
                 isAlert: false
             }
 
-            data.members.push(newMember);
+            data.players.push(newPlayer);
 
             await this.#save(this.groupId, data);
 
             const medals = ["🥇", "🥈", "🥉"];
-            const rank = this.#getRank(data.members, newMember);
+            const rank = this.#getRank(data.players, newPlayer);
 
-            text += "🔞 *STATUS DO SEU PINTO* 🔞\n\n";
-            text += `🔥 *Ganho:* +${newCm}cm\n`;
-            text += `🍆 *Total:* ${newMember.cm}cm\n`;
-            text += `🏆 *Ranking:* ${rank}° ${(medals[rank - 1]) ? medals[rank - 1] : ""}\n\n`;
-            text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(newMember.nextAttemp))}*`;
+            text += "📋️ *STATUS DO SEU PINTO* 📋️\n\n";
+            text += `${(rank === 1) ? "🤴" : (rank > 3) ? "🐵️" : "👤️"} *Dono:* @${newPlayer.name}\n`;
+            text += `🆕️ *Ganho:* +${newCm} cm ${(newCm >= 30) ? "🔥️" : " "}\n`;
+            text += `🍆 *Total:* ${newPlayer.cm} cm\n`;
+            text += `${(medals[rank - 1]) ? medals[rank - 1] : "💩️"} *Ranking:* ${rank}°\n\n`;
+            text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(newPlayer.nextAttemp))}*`;
 
             return await this.msg.reply(text);
         }
 
-        if (!this.#isTime(member.nextAttemp)) {
-            if (member.isAlert) return;
+        if (!this.#isTime(player.nextAttemp)) {
+            if (player.isAlert) return;
 
-            const alertMessage = await this.#alertMessage(`*${member.name}*`, `*${this.#formatDate(new Date(member.nextAttemp))}*`);
+            const alertMessage = await this.#alertMessage(`*${player.name}*`, `*${this.#formatDate(new Date(player.nextAttemp))}*`);
 
             text += `${alertMessage}`;
-            member.isAlert = true;
+            player.isAlert = true;
 
             await this.#save(this.groupId, data);
 
@@ -71,23 +76,24 @@ export class DickGrowerService {
 
         const newCm = this.#cmGenerator();
 
-        let lastRank = this.#getRank(data.members, member);
+        let lastRank = this.#getRank(data.players, player);
 
-        member.cm += newCm
-        member.lastRank = lastRank
-        member.nextAttemp = this.#setAttemp();
-        member.isAlert = false;
+        player.cm += newCm
+        player.lastRank = lastRank
+        player.nextAttemp = this.#setAttemp();
+        player.isAlert = false;
 
         await this.#save(this.groupId, data);
 
         const medals = ["🥇", "🥈", "🥉"];
-        const rank = this.#getRank(data.members, member);
+        const rank = this.#getRank(data.players, player);
 
-        text += "🔞 *STATUS DO SEU PINTO* 🔞\n\n";
-        text += `🔥 *Ganho:* +${newCm}cm\n`;
-        text += `🍆 *Total:* ${member.cm}cm\n`;
-        text += `🏆 *Ranking:* ${rank}° ${(medals[rank - 1]) ? medals[rank - 1] : ""}\n\n`;
-        text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(member.nextAttemp))}*`;
+        text += "📋️ *STATUS DO SEU PINTO* 📋️\n\n";
+        text += `${(rank === 1) ? "🤴" : (rank > 3) ? "🐵️" : "👤️"} *Dono:* @${player.name}\n`;
+        text += `🆕️ *Ganho:* +${newCm} cm ${(newCm >= 30) ? "🔥️" : " "}\n`;
+        text += `🍆 *Total:* ${player.cm} cm\n`;
+        text += `${(medals[rank - 1]) ? medals[rank - 1] : "💩️"} *Ranking:* ${rank}° ${this.#arrowPosition(rank, lastRank)}\n\n`;
+        text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(player.nextAttemp))}*`;
 
         return await this.msg.reply(text);
     }
@@ -95,37 +101,63 @@ export class DickGrowerService {
     async rank() {
         let text = "";
 
-        text += "Ranque dos maiores *PINTOS*\n\n";
+        text += "Rank dos maiores *PINTOS* 🍆️\n\n";
 
         const response = await this.#getGroupById(this.groupId);
 
         if (!response.success) return await this.msg.reply('Use "start" para iniciar o jogo.');
         if (!response.data.status) return await this.msg.reply("O jogo está parado.");
-
         const { data } = response;
 
-        if (data.members.length === 0) return await this.chat.sendMessage(text += "seja o primeiro no ranque.\n");
+        const resetResponse = await this.#endSeasonVerify(data);
+        if (resetResponse.reseted) if (resetResponse.stop) return;
 
-        data.members.sort((x, y) => {
+        text += `🏆️ *TEMPORADA ${data.currentSeason.season}* | ${this.#timeDuration(data.seasonTime)}\n\n`;
+
+        if (data.players.length === 0) return await this.chat.sendMessage(text += "seja o primeiro no rank.\n");
+
+        data.players.sort((x, y) => {
             return x.cm - y.cm;
         }).reverse();
 
         let index = 0;
 
-        const topThreeMembers = data.members.slice(0, 3);
-        const othersMembers = data.members.slice(3);
+        const topThreePlayers = data.players.slice(0, 3);
+        const othersPlayers = data.players.slice(3);
         const medals = ["🥇", "🥈", "🥉"];
 
-        for (let i = 0; i < topThreeMembers.length; i++) {
+        for (let i = 0; i < topThreePlayers.length; i++) {
             index += 1;
-            text += `${index}° *@${topThreeMembers[i].name}* ─ ${topThreeMembers[i].cm}cm `;
-            text += `${medals[i]} ${this.#arrowPosition(index, topThreeMembers[i].lastRank)}\n`;
+            text += `${medals[i]} *@${topThreePlayers[i].name}* ─ ${topThreePlayers[i].cm} cm `;
+            text += `${this.#arrowPosition(index, topThreePlayers[i].lastRank)}\n`;
         }
 
-        for (let i = 0; i < othersMembers.length; i++) {
+        for (let i = 0; i < othersPlayers.length; i++) {
             index += 1;
-            text += `${index}° *@${othersMembers[i].name}* ─ ${othersMembers[i].cm}cm `;
-            text += `${this.#arrowPosition(index, othersMembers[i].lastRank)}\n`;
+            text += ` ${index}° @${othersPlayers[i].name} ─ ${othersPlayers[i].cm} cm `;
+            text += `${this.#arrowPosition(index, othersPlayers[i].lastRank)}\n`;
+        }
+
+        return await this.chat.sendMessage(text);
+    }
+
+    async seasons() {
+        const response = await this.#getGroupById(this.groupId);
+
+        if (!response.success) return await this.msg.reply('Use "start" para iniciar o jogo.');
+        if (!response.data.status) return await this.msg.reply("O jogo está parado.");
+        const { data } = response;
+
+        let text = "*Pinto de Ouro* 🏆\n\n";
+
+        if (data.seasons.length === 0) return await this.chat.sendMessage(text += "nenhum vencedor ainda.\n");
+
+        data.seasons.sort((x, y) => {
+            return x.victories - y.victories
+        }).reverse();
+
+        for (let i = 0; i < data.seasons.length; i++) {
+            text += `🏆 ${data.seasons[i].victories}× ─ *@${data.seasons[i].name}*\n`;
         }
 
         return await this.chat.sendMessage(text);
@@ -142,7 +174,13 @@ export class DickGrowerService {
             const newGroup = {
                 id: this.groupId,
                 name: this.chat.name,
-                members: [],
+                players: [],
+                currentSeason: {
+                    season: 1,
+                    createdAt: Date.now()
+                },
+                seasons: [],
+                seasonTime: this.#setSeasonTime(),
                 status: true
             }
 
@@ -180,9 +218,12 @@ export class DickGrowerService {
     }
 
     async reset(client) {
-        if (!(await isAdmin(client, this.chat, this.userId))) {
+        if (this.userId !== "115324301107441@lid") {
             return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
         }
+        // if (!(await isAdmin(client, this.chat, this.userId))) {
+        //     return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
+        // }
 
         const response = await this.#getGroupById(this.groupId);
         if (!response.success) return await this.msg.reply("O jogo não foi inicializado.");
@@ -190,7 +231,13 @@ export class DickGrowerService {
         const newGroup = {
             id: this.groupId,
             name: this.chat.name,
-            members: [],
+            players: [],
+            currentSeason: {
+                season: 1,
+                createdAt: Date.now()
+            },
+            seasons: [],
+            seasonTime: this.#setSeasonTime(),
             status: true
         }
 
@@ -214,20 +261,22 @@ export class DickGrowerService {
     }
 
     async #save(id, data) {
-        const filePath = `${this.#storagePath}/${id}.json`;
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+        writeFileSync(
+            `${this.#storagePath}/${id}.json`,
+            JSON.stringify(data, null, 2)
+        );
     }
 
     #setAttemp() {
         return Date.now() + (3 * 60 * 60 * 1000);
     }
 
-    #getRank(members, member) {
-        members.sort((x, y) => {
+    #getRank(players, player) {
+        players.sort((x, y) => {
             return x.cm - y.cm;
         }).reverse();
 
-        return (members.indexOf(member) + 1);
+        return (players.indexOf(player) + 1);
     }
 
     #cmGenerator() {
@@ -238,24 +287,123 @@ export class DickGrowerService {
         return ((time - Date.now()) < 0) ? true : false;
     }
 
+    #timeDuration(date) {
+        return timeDuration(date, "future");
+    }
+
     #formatDate(date) {
         return date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
     }
 
-    #arrowPosition(index, lastRank) {
+    #arrowPosition(currRank, lastRank) {
         let text;
 
-        if ((index) !== lastRank) {
-            if ((index) < lastRank) {
-                text = "⇧";
-            } else if ((index) > lastRank) {
-                text = "⇩";
-            }
-        } else {
-            text = "";
-        }
+        if (currRank < lastRank) {
+            text = "⇧";
+        } else if (currRank > lastRank) {
+            text = "⇩";
+        } else { text = ""; }
 
         return text;
+    }
+
+    #resetSeason(data) {
+        if (data.players.length === 0) {
+            data.players = [];
+            data.seasonTime = this.#setSeasonTime();
+
+            return data;
+        }
+
+        let topPlayer = data.players[0];
+
+        data.players = [];
+        data.seasonTime = this.#setSeasonTime();
+
+        const topPlayerExist = data.seasons.find(x => x.id === topPlayer.id);
+
+        if (!topPlayerExist) {
+            data.seasons.push({
+                id: topPlayer.id,
+                name: topPlayer.name,
+                victories: 1
+            });
+        } else {
+            topPlayerExist.victories += 1;
+        }
+
+        data.currentSeason.season += 1;
+        data.currentSeason.createdAt = Date.now();
+
+        return data;
+    }
+
+    #setSeasonTime() {
+        let date = new Date();
+        let day = date.getDay();
+
+        if (day === 0) {
+            date.setDate(date.getDate() + 7);
+            date.setHours(0, 0, 0);
+            return date.getTime();
+        }
+
+        let lastWeekDay = 6;
+        let daysRemaining = lastWeekDay - day;
+
+        date.setDate(date.getDate() + daysRemaining + 1);
+        date.setHours(0, 0, 0);
+
+        return date.getTime();
+    }
+
+    async #endSeasonVerify(data) {
+        if (data.seasonTime < Date.now()) {
+            if (data.players.length > 0) {
+                data.players = (data.players.sort((x, y) => {
+                    return x.cm - y.cm
+                }).reverse());
+
+                let text = `Fim da *TEMPORADA* #season01# 🏆️\n\n`;
+
+                text += "🥇 *@#playername#* fechou a *TEMPORADA* #season02# com *#playercm# cm* de ";
+                text += "pinto pulsando e jorrando leite quente na cara dos perdedores.\n\n";
+
+                const currentSeason = data.currentSeason.season;
+
+                text = text.replace("#season01#", currentSeason);
+                text = text.replace("#season02#", currentSeason);
+                text = text.replace("#playername#", data.players[0].name);
+                text = text.replace("#playercm#", data.players[0].cm);
+
+                if (data.players.length >= 3) {
+                    text += `🥈 *@${data.players[1].name}* ─ ${data.players[1].cm} cm\n`;
+                    text += `🥉 *@${data.players[2].name}* ─ ${data.players[2].cm} cm \n`;
+                }
+
+                this.#resetSeason(data);
+
+                await this.chat.sendMessage(text);
+                await this.#save(this.groupId, data);
+
+                return {
+                    reseted: true,
+                    stop: true
+                }
+            }
+
+            this.#resetSeason(data);
+            await this.#save(this.groupId, data);
+
+            return {
+                reseted: true,
+                stop: false
+            }
+        }
+
+        return {
+            reseted: false,
+        }
     }
 
     async #alertMessage(playerName, time) {
@@ -267,18 +415,6 @@ export class DickGrowerService {
         message = message.replace("#time#", time);
 
         return message;
-    }
-
-    async #growMessage(playerName, newCm, currentCm) {
-        const messages = (await importJson("src/data/dickGrowerMessages.json")).growMessages;
-
-        let message = messages[RNG(messages.length, 0)];
-
-        message = message.replace("#playerName#", playerName);
-        message = message.replace("#newCm#", newCm);
-        message = message.replace("#currentCm#", currentCm);
-
-        return `${message}\n\n`;
     }
 
     #init() {

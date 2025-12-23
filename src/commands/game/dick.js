@@ -6,6 +6,7 @@ export default {
     params: [
         "<crescer>",
         "<rank>",
+        "<temporadas>",
         "<start>",
         "<stop>",
         "<reset>"
@@ -34,6 +35,7 @@ export default {
         switch (args) {
             case "crescer": await dick.grow(); break;
             case "rank": await dick.rank(); break;
+            case "temporadas": await dick.seasons(); break;
             case "start": await dick.start(client); break;
             case "stop": await dick.stop(client); break
             case "reset": await dick.reset(client); break;
