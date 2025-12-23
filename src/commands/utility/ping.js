@@ -14,7 +14,7 @@ export default {
 
         const latency = end - start;
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         return await sent.edit(`🏓 Pong!\n\n📡 Latência: *${latency}ms*`);
     }
