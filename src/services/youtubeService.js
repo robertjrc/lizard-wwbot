@@ -86,8 +86,11 @@ export class YoutubeService {
     }
 
     async getInfo(target) {
-        const isUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&/=]*)/)
-        function result(success, { message, data }) {
+        const isUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&/=]*)/);
+        const idFilter = /(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([0-9A-Za-z_-]{11})/;
+        const ytDomains = ["youtube", "youtu.be"];
+
+        const result = (success, { message, data }) => {
             return {
                 success,
                 message: message || null,
@@ -95,23 +98,28 @@ export class YoutubeService {
             }
         }
 
-        const ytDomains = ["youtube", "youtu.be"]
-        if (isUrl.test(target)) if (!ytDomains.some(x => target.includes(x))) {
-            return result(false, { message: "Apenas link do YouTube." });
+        if (isUrl.test(target)) {
+            if (!ytDomains.some(x => target.includes(x))) {
+                return result(false, { message: "Apenas link do YouTube." });
+            }
+
+            const match = target.match(idFilter);
+
+            target = match ? `https://youtu.be/${match[0]}` : null;
         }
 
         try {
-            const results = await ytstream.search(target)
+            const results = (await ytstream.search(target))[0];
 
             return result(true, {
                 data: {
-                    title: results[0].title,
-                    url: results[0].url,
-                    author: results[0].author,
-                    songLength: results[0].length,
-                    songLengthText: results[0].length_text,
-                    views: results[0].views,
-                    thumb: results[0].thumbnail
+                    title: results.title,
+                    url: results.url,
+                    author: results.author,
+                    songLength: results.length,
+                    songLengthText: results.length_text,
+                    views: results.views,
+                    thumb: results.thumbnail
                 }
             });
         } catch (error) {
@@ -131,7 +139,7 @@ export class YoutubeService {
 
             if (userTime - Date.now() > 0) return {
                 success: false,
-                message: `Você só poderá pedir música novamente às *${formatDate(userTime)}*, devido a solicitação anterior.`
+                message: `Aguarde até às *${formatDate(userTime)}*, antes de baixar outro conteúdo.`
             }
             storage.delete(userId);
         }
