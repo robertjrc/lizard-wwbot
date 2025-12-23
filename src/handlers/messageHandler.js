@@ -5,6 +5,7 @@ import { msgResult } from "../utils/messageResult.js";
 import { timeoutVerify } from "../helpers/timeoutVerify.js";
 import { importJson } from "../utils/importJson.js";
 import { isAdmin } from "../helpers/isAdmin.js";
+import { flags } from "../helpers/featureFlag.js";
 
 const { prefix } = await importJson("src/config/bot.json");
 
@@ -20,6 +21,11 @@ export default async (client, msg) => {
 
     const command = await getCommand(commandName);
     if (!command) return;
+
+    const devmode = flags.devMODE(false, { id: chat.id._serialized });
+    if (devmode.status) {
+        if (devmode.condition) return await chat.sendMessage(devmode.message);
+    }
 
     if (await timeoutVerify(chat.id._serialized, msg.author)) return;
     if (command.admin) if (!(await isAdmin(client, chat, msg.author))) return;
@@ -37,6 +43,6 @@ export default async (client, msg) => {
         return await command.execute(msg, { client, chat, args });
     } catch (error) {
         console.log(error);
-        return await msg.reply("⚠️ *Erro genérico:* Ocorreu um erro ao processar o comando. Tente novamente mais tarde.");
+        return await msg.reply("> ㅤ\n> ⚠️ *Erro genérico:* Ocorreu um erro ao processar o comando. Tente novamente mais tarde.\n> ㅤ");
     }
 }
