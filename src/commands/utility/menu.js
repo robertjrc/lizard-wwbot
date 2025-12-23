@@ -11,7 +11,7 @@ export default {
         Exibe o menu interativo com todas as
         categorias e alguns comandos no bot.
     `.replace(/\s+/g, ' ').trim(),
-    async execute(msg) {
+    async execute(_, { chat }) {
         const { prefix, nickname, owner, menu_pic } = await importJson("src/config/bot.json");
         const { version } = await importJson("package.json");
         const modulesEmoji = await importJson("src/data/modulesEmoji.json");
@@ -41,6 +41,6 @@ export default {
         text += "┃\n";
         text += "┗━━";
 
-        return await msg.reply(await MessageMedia.fromUrl(menu_pic), null, { caption: text });
+        return await chat.sendMessage(await MessageMedia.fromUrl(menu_pic), { caption: text });
     }
 }
