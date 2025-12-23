@@ -22,6 +22,7 @@ export async function videoResize(media) {
         ffmpeg(stream)
             .videoCodec('libx264')
             .size('512x512')
+            .fps(60)
             .outputOptions(['-preset fast', '-movflags +faststart', '-pix_fmt yuv420p'])
             .noAudio()
             .save(tempfile)
