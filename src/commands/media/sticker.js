@@ -8,7 +8,7 @@ import { importJson } from "../../utils/importJson.js";
 export default {
     name: "sticker",
     aliases: ["s", "fig"],
-    params: ["<normal>"],
+    params: ["<default>"],
     category: "mídia",
     desc: "Cria figurinhas personalizadas a partir de imagens, vídeos ou GIFs.",
     async execute(msg, { args }) {
@@ -22,7 +22,7 @@ export default {
         let type;
         let media;
         let songsLimite = 10;
-        let formatScale = (args && args.toLowerCase() === "normal") ? "contain" : "inside"
+        let formatScale = (args && args.toLowerCase() === "default") ? "contain" : "inside"
 
         let content = (msg.hasQuotedMsg) ? await msg.getQuotedMessage() : msg;
 
