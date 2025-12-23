@@ -1,4 +1,5 @@
 import { importJson } from "../../utils/importJson.js";
+import { msgResult } from "../../utils/messageResult.js";
 import { RNG } from "../../utils/RNG.js";
 
 export default {
@@ -13,6 +14,13 @@ export default {
         divertido baseado no resultado.
     `.replace(/\s+/g, ' ').trim(),
     async execute(msg, { args }) {
+        if (!args) {
+            return msg.reply(msgResult("alert", {
+                title: "sem parâmetro",
+                message: "Por favor, forneça um parâmetro (ex: options...)."
+            }));
+        }
+
         const levels = await importJson("src/data/levels.json");
 
         if (args === "options") {
@@ -35,7 +43,7 @@ export default {
         let result = RNG(101, 0);
         let user = (msg.hasQuotedMsg) ? (await msg.getQuotedMessage()).id.participant._serialized : msg.author;
         let text = "*Avaliação oficial*\n\n";
-        text += `*Solicitado por:* @${user.split("@")[0]}\n`;
+        text += `*Usuário:* @${user.split("@")[0]}\n`;
         text += `*Tipo de exame:* nível de ${level.type.toUpperCase()} ${level.emoji}\n`;
         text += `*Resultado:* ${result}% 🧪\n\n`;
 
