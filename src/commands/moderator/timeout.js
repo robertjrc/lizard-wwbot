@@ -117,6 +117,6 @@ export default {
             message: text
         });
 
-        return await msg.reply(result, null, { mentions: [memberId] });
+        return await chat.sendMessage(result, { mentions: [memberId] });
     }
 }
