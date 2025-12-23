@@ -17,6 +17,19 @@ export class AudioEffectService {
             }
         } catch (error) {
             console.error(error);
+
+            if (error.toString().includes("SIGABRT")) {
+                return {
+                    success: false,
+                    message: `
+                            Esse efeito já foi usado no áudio mais vezes do que
+                            o permitido. Aplicá-lo novamente pode causar falhas
+                            no processamento. Tente usar outro efeito ou comece
+                            com o arquivo original.
+                        `.replace(/\s+/g, ' ').trim()
+                }
+            }
+
             return {
                 success: false,
                 message: "Não foi possível converter."
