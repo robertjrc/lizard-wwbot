@@ -17,12 +17,6 @@ export default {
 
         let text = "";
 
-        function nameLimit(name) {
-            const charLimit = 10;
-
-            return (name.length > charLimit) ? `${name.substring(0, charLimit)}...` : name;
-        }
-
         text += "Principais *Membros*\n\n";
 
         if (members.length === 0) return await chat.sendMessage("seja o primeiro no ranque.\n");
@@ -40,13 +34,12 @@ export default {
 
         for (let i = 0; i < topThreeMembers.length; i++) {
             index += 1;
-            text += `${index}° *@${nameLimit(topThreeMembers[i].name)}* ┃ ${topThreeMembers[i].xpRequired} XP`;
-            text += `${medals[i]}\n`;
+            text += `${medals[i]} *@${topThreeMembers[i].shortName}* - ${topThreeMembers[i].xpRequired} XP\n`;
         }
 
         for (let i = 0; i < othersMembers.length; i++) {
             index += 1;
-            text += `${index}° *@${nameLimit(othersMembers[i].name)}* ┃ ${othersMembers[i].xpRequired} XP\n`;
+            text += ` ${index}° *@${othersMembers[i].shortName}* - ${othersMembers[i].xpRequired} XP\n`;
         }
 
         if (nMembers > 10) {
