@@ -1,12 +1,13 @@
 import { Group } from "group-analyzer";
 import NodeCache from "node-cache";
-import { relativeTime } from "../helpers/relativeTime.js";
+import { timeDuration } from "../helpers/timeDuration.js";
 
 const usersStorage = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
 export class AntiSpamService {
     static #messageLimit = 3;
     static #imeWindow = 10000;
+    static #timeoutTime = Date.now() + 86400000;
 
     static async check(groupId, memberId) {
         const now = Date.now();
@@ -27,7 +28,7 @@ export class AntiSpamService {
 
             const response = await this.#setTimemout(groupId, memberId);
 
-            let text = `Duração: *${relativeTime(Date.now() + 1800000, "future")}*\n`;
+            let text = `Duração: *${timeDuration(this.#timeoutTime, "future")}*\n`;
             text += `Motivo: *${response.reason}*\n\n`;
             text += "Durante esse período, você não poderá usar os comandos do bot.";
 
@@ -40,7 +41,7 @@ export class AntiSpamService {
 
     static async #setTimemout(groupId, memberId) {
         const timeoutForm = {
-            timeRef: "30m",
+            timeRef: "1d",
             reason: "Uso excessivo de comandos."
         }
 
