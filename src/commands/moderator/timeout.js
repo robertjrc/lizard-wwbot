@@ -1,6 +1,6 @@
 import { Group, Member } from "group-analyzer";
 import { msgResult } from "../../utils/messageResult.js";
-import { relativeTime } from "../../helpers/relativeTime.js";
+import { timeDuration } from "../../helpers/timeDuration.js";
 
 export default {
     name: "timeout",
@@ -108,7 +108,7 @@ export default {
         }
 
         let text = `Membro: *@${memberId.split("@")[0]}*\n`;
-        text += `Duração: *${relativeTime(Date.now() + duration, "future")}*\n`;
+        text += `Duração: *${timeDuration(Date.now() + duration, "future")}*\n`;
         text += `Motivo: *${reason}*\n\n`;
         text += `Durante esse período, *@${memberId.split("@")[0]}* não poderá usar os comandos do bot.`;
 
