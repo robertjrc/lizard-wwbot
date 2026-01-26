@@ -42,6 +42,13 @@ export default {
             }));
         }
 
+        if(!deezer.data) {
+            return await msg.reply(msgResult("alert", {
+                title: "não foi possível",
+                message: "conteudo não encontrado."
+            }));
+        }
+
         const searchProps = {
             url: deezer.data.data[0].link,
             preview_url: deezer.data.data[0].preview,
