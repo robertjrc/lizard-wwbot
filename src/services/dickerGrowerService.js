@@ -32,13 +32,19 @@ export class DickGrowerService {
         if (resetResponse.reseted) if (resetResponse.stop) return;
 
         const player = data.players.find(x => x.id === this.userId);
+        const championsByPlayer = data.seasons.find(x => x.id === this.userId);
+        const custBoost = 30;
+
         if (!player) {
             const newCm = this.#cmGenerator();
+
+            const newCredit = this.#creditsCalc(newCm);
 
             const newPlayer = {
                 id: this.userId,
                 name: this.msg._data.notifyName.split(" ")[0],
                 cm: newCm,
+                credits: newCredit,
                 lastRank: (data.players.length + 1),
                 nextAttemp: this.#setAttemp(),
                 isAlert: false
@@ -46,17 +52,19 @@ export class DickGrowerService {
 
             data.players.push(newPlayer);
 
-            await this.#save(this.groupId, data);
-
             const medals = ["🥇", "🥈", "🥉"];
             const rank = this.#getRank(data.players, newPlayer);
 
-            text += "📋️ *STATUS DO SEU PINTO* 📋️\n\n";
-            text += `${(rank === 1) ? "🤴" : (rank > 3) ? "🐵️" : "👤️"} *Dono:* @${newPlayer.name}\n`;
+            text += "📋️ Status do seu *Pinto* 📋️\n\n";
+            text += `👤️ @${newPlayer.name} `;
+            text += (championsByPlayer) ? ` ─ 🏆 *${championsByPlayer.victories}×*\n\n` : "\n\n";
             text += `🆕️ *Ganho:* +${newCm} cm ${(newCm >= 30) ? "🔥️" : " "}\n`;
             text += `🍆 *Total:* ${newPlayer.cm} cm\n`;
+            text += `🪙 *Credit:* ${newPlayer.credits}/*${custBoost}* +${newCredit}\n`;
             text += `${(medals[rank - 1]) ? medals[rank - 1] : "💩️"} *Ranking:* ${rank}°\n\n`;
-            text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(newPlayer.nextAttemp))}*`;
+            text += `⏰ Nova tentativa às *${this.#formatDate(newPlayer.nextAttemp)}*`;
+
+            await this.#save(this.groupId, data);
 
             return await this.msg.reply(text);
         }
@@ -64,7 +72,7 @@ export class DickGrowerService {
         if (!this.#isTime(player.nextAttemp)) {
             if (player.isAlert) return;
 
-            const alertMessage = await this.#alertMessage(`*${player.name}*`, `*${this.#formatDate(new Date(player.nextAttemp))}*`);
+            const alertMessage = await this.#alertMessage(`*${player.name}*`, `*${this.#formatDate(player.nextAttemp)}*`);
 
             text += `${alertMessage}`;
             player.isAlert = true;
@@ -74,45 +82,58 @@ export class DickGrowerService {
             return await this.msg.reply(text);
         }
 
-        const newCm = this.#cmGenerator();
-
+        let newCm = this.#cmGenerator();
         let lastRank = this.#getRank(data.players, player);
+        let isBoost = false;
 
-        player.cm += newCm
-        player.lastRank = lastRank
+        const newCredit = this.#creditsCalc(newCm);
+
+        player.credits += newCredit;
+        player.lastRank = lastRank;
         player.nextAttemp = this.#setAttemp();
         player.isAlert = false;
+
+        if (player.credits >= custBoost) {
+            player.cm += newCm * 3;
+            player.credits -= custBoost;
+            isBoost = true;
+        } else {
+            player.cm += newCm;
+        }
+
+        data.players.sort((x, y) => {
+            return x.cm - y.cm;
+        }).reverse();
 
         await this.#save(this.groupId, data);
 
         const medals = ["🥇", "🥈", "🥉"];
         const rank = this.#getRank(data.players, player);
 
-        text += "📋️ *STATUS DO SEU PINTO* 📋️\n\n";
-        text += `${(rank === 1) ? "🤴" : (rank > 3) ? "🐵️" : "👤️"} *Dono:* @${player.name}\n`;
-        text += `🆕️ *Ganho:* +${newCm} cm ${(newCm >= 30) ? "🔥️" : " "}\n`;
-        text += `🍆 *Total:* ${player.cm} cm\n`;
+        text += "📋️ Status do seu *Pinto* 📋️\n\n";
+        text += `👤️ @${player.name}`;
+        text += (championsByPlayer) ? ` ─ 🏆 *${championsByPlayer.victories}×*\n\n` : "\n\n";
+        text += `🆕️ *Ganho:* +${newCm} cm ${(newCm >= 30) ? "🔥️" : ""} ${(isBoost ? "(3×)" : "")}\n`;
+        text += "🍆 *Total:* ";
+        text += (isBoost) ? `${player.cm - newCm} ➟ ${player.cm} cm\n` : `${player.cm} cm\n`;
+        text += `🪙 *Credit:* ${player.credits}/*${custBoost}* +${newCredit}\n`;
         text += `${(medals[rank - 1]) ? medals[rank - 1] : "💩️"} *Ranking:* ${rank}° ${this.#arrowPosition(rank, lastRank)}\n\n`;
-        text += `⏰ Próxima tentativa às *${this.#formatDate(new Date(player.nextAttemp))}*`;
+        text += `⏰ Nova tentativa às *${this.#formatDate(player.nextAttemp)}*`;
 
         return await this.msg.reply(text);
     }
 
     async rank() {
-        let text = "";
-
-        text += "Rank dos maiores *PINTOS* 🍆️\n\n";
-
         const response = await this.#getGroupById(this.groupId);
 
         if (!response.success) return await this.msg.reply('Use "start" para iniciar o jogo.');
         if (!response.data.status) return await this.msg.reply("O jogo está parado.");
         const { data } = response;
 
+        let text = `🏆 *Pinto de Ouro ${data.currentSeason.season}* 🏆\n\n`;
+
         const resetResponse = await this.#endSeasonVerify(data);
         if (resetResponse.reseted) if (resetResponse.stop) return;
-
-        text += `🏆️ *TEMPORADA ${data.currentSeason.season}* | ${this.#timeDuration(data.seasonTime)}\n\n`;
 
         if (data.players.length === 0) return await this.chat.sendMessage(text += "seja o primeiro no rank.\n");
 
@@ -138,6 +159,8 @@ export class DickGrowerService {
             text += `${this.#arrowPosition(index, othersPlayers[i].lastRank)}\n`;
         }
 
+        text += `\n⏳ *TEMPORADA ${data.currentSeason.season + 1}* | ${this.#timeDuration(data.seasonTime)}`;
+
         return await this.chat.sendMessage(text);
     }
 
@@ -148,7 +171,7 @@ export class DickGrowerService {
         if (!response.data.status) return await this.msg.reply("O jogo está parado.");
         const { data } = response;
 
-        let text = "*Pinto de Ouro* 🏆\n\n";
+        let text = "🏆 *Pinto de Ouro* 🏆\n\n";
 
         if (data.seasons.length === 0) return await this.chat.sendMessage(text += "nenhum vencedor ainda.\n");
 
@@ -156,8 +179,11 @@ export class DickGrowerService {
             return x.victories - y.victories
         }).reverse();
 
+        let index = 0;
+
         for (let i = 0; i < data.seasons.length; i++) {
-            text += `🏆 ${data.seasons[i].victories}× ─ *@${data.seasons[i].name}*\n`;
+            index += 1;
+            text += `${index}° *@${data.seasons[i].name}* ─ 🏆 ${data.seasons[i].victories}×\n`;
         }
 
         return await this.chat.sendMessage(text);
@@ -218,12 +244,9 @@ export class DickGrowerService {
     }
 
     async reset(client) {
-        if (this.userId !== "115324301107441@lid") {
+        if (!(await isAdmin(client, this.chat, this.userId))) {
             return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
         }
-        // if (!(await isAdmin(client, this.chat, this.userId))) {
-        //     return await this.msg.reply("Por favor, peça a um *admin* para resetar o jogo.");
-        // }
 
         const response = await this.#getGroupById(this.groupId);
         if (!response.success) return await this.msg.reply("O jogo não foi inicializado.");
@@ -292,7 +315,7 @@ export class DickGrowerService {
     }
 
     #formatDate(date) {
-        return date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        return new Date(date).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
     }
 
     #arrowPosition(currRank, lastRank) {
@@ -305,6 +328,24 @@ export class DickGrowerService {
         } else { text = ""; }
 
         return text;
+    }
+
+    #creditsCalc(cm) {
+        let credits = 0;
+
+        const table = [
+            { min: 1, max: 4, credit: 10 },
+            { min: 5, max: 9, credit: 7 },
+            { min: 10, max: 19, credit: 5 },
+            { min: 20, max: 34, credit: 3 },
+            { min: 35, max: 46, credit: 1 }
+        ];
+
+        for (let credit of table) {
+            if (cm >= credit.min && cm <= credit.max) credits = credit.credit;
+        }
+
+        return credits;
     }
 
     #resetSeason(data) {
@@ -366,7 +407,7 @@ export class DickGrowerService {
 
                 let text = `Fim da *TEMPORADA* #season01# 🏆️\n\n`;
 
-                text += "🥇 *@#playername#* fechou a *TEMPORADA* #season02# com *#playercm# cm* de ";
+                text += "🥇 *@#playername#* venceu o *Pinto de Ouro* #season02# com *#playercm# cm* de ";
                 text += "pinto pulsando e jorrando leite quente na cara dos perdedores.\n\n";
 
                 const currentSeason = data.currentSeason.season;
