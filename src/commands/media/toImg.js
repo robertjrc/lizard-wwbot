@@ -1,4 +1,5 @@
 import { MessageMedia } from "../../lib/wwbotjs.js";
+import { msgResult } from "../../utils/messageResult.js";
 
 export default {
     name: "toimg",
