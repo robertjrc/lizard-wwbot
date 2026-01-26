@@ -22,7 +22,7 @@ export default {
         let type;
         let media;
         let songsLimite = 10;
-        let formatScale = (args && args.toLowerCase() === "default") ? "contain" : "inside"
+        let formatScale = (args && args.toLowerCase() === "default") ? "contain" : "cover"
 
         let content = (msg.hasQuotedMsg) ? await msg.getQuotedMessage() : msg;
 
@@ -45,13 +45,13 @@ export default {
             mimetype: type.mimetype,
             data: (type.mimetype.split("/")[0] === 'image')
                 ? (await imgToWebp(data, formatScale))
-                : (formatScale === "inside") ? await videoResize(new MessageMedia(type.mimetype, data, type.filename)) : data,
+                : (formatScale === "cover") ? await videoResize(new MessageMedia(type.mimetype, data, type.filename)) : data,
             filename: type.filename
         };
 
         media = new MessageMedia(stickerProps.mimetype, stickerProps.data.toString("base64"), stickerProps.filename);
 
-        return msg.reply(media, null, {
+        return await msg.reply(media, null, {
             sendMediaAsSticker: true,
             stickerName: authorNickname,
             stickerAuthor: nickname
