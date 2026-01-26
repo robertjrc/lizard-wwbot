@@ -21,10 +21,21 @@ export async function videoResize(media) {
     await new Promise((resolve, reject) => {
         ffmpeg(stream)
             .videoCodec('libx264')
-            .size('512x512')
-            .fps(60)
-            .outputOptions(['-preset fast', '-movflags +faststart', '-pix_fmt yuv420p'])
+            .fps(20)
+            .videoFilters([
+                "scale=w='min(512,iw*(512/min(iw,ih)))':h='min(512,ih*(512/min(iw,ih)))':force_original_aspect_ratio=increase",
+                "crop=512:512:(in_w-out_w)/2:(in_h-out_h)/2"
+            ])
+            .outputOptions([
+                '-preset veryfast',
+                '-crf 28',
+                '-maxrate 1M',
+                '-bufsize 2M',
+                '-movflags +faststart',
+                '-pix_fmt yuv420p'
+            ])
             .noAudio()
+            .format('mp4')
             .save(tempfile)
             .on('error', reject)
             .on('end', resolve);
