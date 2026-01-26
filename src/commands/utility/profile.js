@@ -13,12 +13,12 @@ export default {
 
         if (memberInfo.name !== msg._data.notifyName) await Member.newName(msg._data.notifyName);
 
-        let text = `Perfil de *${memberInfo.shortName}* 👤\n`;
+        let text = `👤 Perfil de *${memberInfo.shortName}*\n`;
         text += "\n"
-        text += `*Nível:* ${memberInfo.level} 🌟\n`;
-        text += `*Mensagens:* ${(memberInfo.messageCount).toLocaleString()} 💬\n`;
-        text += `*XP:* *${memberInfo.xp}*/${memberInfo.xpRequired} `;
-        text += `(${((memberInfo.xp / memberInfo.xpRequired) * 100).toFixed(0)}%) 📈\n`;
+        text += `🎖️ *Nível:* ${memberInfo.level}\n`;
+        text += `💬 *Msg:* ${(memberInfo.messageCount).toLocaleString()}\n`;
+        text += `✨ *XP:* *${memberInfo.xp}*/${memberInfo.xpRequired} `;
+        text += `(${((memberInfo.xp / memberInfo.xpRequired) * 100).toFixed(0)}%)\n`;
 
         return msg.reply(text);
     }
