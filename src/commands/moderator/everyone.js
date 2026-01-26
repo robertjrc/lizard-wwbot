@@ -27,7 +27,7 @@ export default {
         const quotedMsg = await msg.getQuotedMessage();
 
         text += `🚨 *ATENÇÃO!* Você foi mencionado por outro membro. Por favor, verifique a mensagem e responda se necessário.\n\n`;
-        text += `autor: *@${msg.author.split("@")[0]}*\n`;
+        text += `autor: *@${msg._data.notifyName}*\n`;
         text += `membros: *${members.length}*`;
 
         return await quotedMsg.reply(text, null, { mentions: members });
