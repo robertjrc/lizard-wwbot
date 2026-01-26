@@ -43,6 +43,6 @@ export default async (client, msg) => {
         return await command.execute(msg, { client, chat, args });
     } catch (error) {
         console.log(error);
-        return await msg.reply("> ㅤ\n> ⚠️ *Erro genérico:* Ocorreu um erro ao processar o comando. Tente novamente mais tarde.\n> ㅤ");
+        return await msg.reply("⚠️ *Erro genérico:* Ocorreu um erro ao processar o comando. Tente novamente mais tarde.");
     }
 }
